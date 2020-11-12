@@ -1,16 +1,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
 import NavBar from './NavBar';
 import Banner from './Banner';
 
-import {
-  AppShellStyled,
-  Wrapper,
-  SidebarWrapper,
-  ContentWrapper,
-} from './style';
+import { AppShellStyled, ContentWrapper, SidebarWrapper, Wrapper } from './style';
+import { LOADING_USER, User } from './User';
+
+const QUERY_ACCOUNT = gql`
+  query account {
+    account {
+      id
+      email
+      featureFlips
+      organizations {
+        id
+      }
+      channels {
+        name
+        id
+        service
+        isDisconnected
+        avatar
+        serviceId
+        organizationId
+        products
+      }
+      products {
+        name
+      }
+      isImpersonation
+    }
+  }
+`;
 
 const ENABLE_ENGAGE_URL = 'https://login.buffer.com/signup?product=engage';
 
@@ -18,7 +43,7 @@ const ENABLE_ENGAGE_URL = 'https://login.buffer.com/signup?product=engage';
  * The AppShell component is a general purpose wrapper for all of our applications. At the moment it's primarily a wrapper for the `NavBar` component. Check out the example below to see how to integrate it into your app.
  */
 const AppShell = ({
-  featureFlips,
+  // featureFlips,
   enabledProducts,
   activeProduct,
   user,
@@ -31,6 +56,9 @@ const AppShell = ({
   orgSwitcher,
   isImpersonation,
 }) => {
+  const { data, loading } = useQuery(QUERY_ACCOUNT)
+  const featureFlips = loading ? [] : data.account.featureFlips
+  const account = loading ? LOADING_USER : { ...data.account, menuItems: [] }
   const engageEnabled = enabledProducts.includes('engage');
   const engageAccess = featureFlips.includes('engageRollOut');
 
@@ -58,24 +86,26 @@ const AppShell = ({
   });
 
   return (
-    <AppShellStyled>
-      {/* <GlobalStyles /> */}
-      <NavBar
-        products={products}
-        activeProduct={activeProduct}
-        user={user}
-        helpMenuItems={helpMenuItems}
-        onLogout={onLogout}
-        displaySkipLink={displaySkipLink}
-        orgSwitcher={orgSwitcher}
-        isImpersonation={isImpersonation}
-      />
-      {bannerOptions && <Banner {...bannerOptions} />}
-      <Wrapper>
-        {sidebar && <SidebarWrapper>{sidebar}</SidebarWrapper>}
-        <ContentWrapper>{content}</ContentWrapper>
-      </Wrapper>
-    </AppShellStyled>
+    <User.Provider value={account}>
+      <AppShellStyled>
+        {/* <GlobalStyles /> */}
+        <NavBar
+          products={products}
+          activeProduct={activeProduct}
+          user={user}
+          helpMenuItems={helpMenuItems}
+          onLogout={onLogout}
+          displaySkipLink={displaySkipLink}
+          orgSwitcher={orgSwitcher}
+          isImpersonation={isImpersonation}
+        />
+        {bannerOptions && <Banner {...bannerOptions} />}
+        <Wrapper>
+          {sidebar && <SidebarWrapper>{sidebar}</SidebarWrapper>}
+          <ContentWrapper>{content}</ContentWrapper>
+        </Wrapper>
+      </AppShellStyled>
+    </User.Provider>
   );
 };
 
@@ -171,3 +201,5 @@ AppShell.defaultProps = {
 };
 
 export default AppShell;
+
+export { useUser, User } from './User'
