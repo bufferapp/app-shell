@@ -182,7 +182,10 @@ const Card = ({
   isCurrentPlan,
 }) => {
   return (
-    <Wrapper tabIndex="0">
+    <Wrapper
+      tabIndex="0"
+      onClick={() => console.log('update currently selected plan')}
+    >
       <CardHeader>
         <Text type="h3">{planName}</Text>
         {isCurrentPlan && <CurrentLabel>Current</CurrentLabel>}
@@ -218,9 +221,6 @@ const Card = ({
 export const SelectionScreen = ({ planOptions }) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
-
-  //useEffect to add eventlisteners to each div
-  //create refs for each div
 
   return (
     <>
