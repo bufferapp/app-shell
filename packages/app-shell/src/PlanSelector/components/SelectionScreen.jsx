@@ -5,36 +5,6 @@ import Switch from '@bufferapp/ui/Switch';
 import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
 import PropTypes from 'prop-types';
 
-const PlanSelectorHeader = styled.header`
-  width: 100%auto;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const SwitchContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  span {
-    font-family: Roboto;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0px;
-    color: #2c4bff;
-  }
-
-  p {
-    color: rgb(61, 61, 61);
-    font-family: Roboto, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
-    margin-left: 4px;
-  }
-`;
-
 const Wrapper = styled.div`
   border: 1px solid #b8b8b8;
   border-radius: 3px;
@@ -44,6 +14,7 @@ const Wrapper = styled.div`
   flex: 1 1 0px;
   margin-right: 12px;
   box-sizing: border-box;
+  overflow: scroll;
 
   p {
     font-weight: 500;
@@ -117,11 +88,20 @@ const RadioButton = styled.div`
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: ${(props) => (props.selected ? 'blue' : 'transparent')};
+  background-color: ${(props) =>
+    props.isPotentialPlan ? 'blue' : 'transparent'};
 
   border: 1.5px solid #e0e0e0;
   transition: 0.2s all linear;
   margin-right: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    fill: white;
+  }
 `;
 
 const Price = styled.div`
@@ -173,6 +153,7 @@ const Benefit = styled.li`
 const Card = ({
   planId,
   planName,
+  planInterval,
   description,
   highlights,
   currency,
@@ -180,17 +161,22 @@ const Card = ({
   priceNote,
   summary,
   isCurrentPlan,
+  handlePlanSelection,
+  isPotentialPlan,
 }) => {
   return (
     <Wrapper
       tabIndex="0"
-      onClick={() => console.log('update currently selected plan')}
+      onClick={(e) => handlePlanSelection(e.target.id)}
+      id={`${planId}_${planInterval}`}
     >
       <CardHeader>
         <Text type="h3">{planName}</Text>
         {isCurrentPlan && <CurrentLabel>Current</CurrentLabel>}
       </CardHeader>
-      <RadioButton />
+      <RadioButton isPotentialPlan={isPotentialPlan.planId === planId}>
+        <CheckmarkIcon size="large" />
+      </RadioButton>
 
       <Text type="p">{description}</Text>
 
@@ -218,26 +204,16 @@ const Card = ({
   );
 };
 
-export const SelectionScreen = ({ planOptions }) => {
-  const [monthlyBilling, setBillingInterval] = useState(true);
+export const SelectionScreen = ({
+  planOptions,
+  potencialPlan,
+  handlePlanSelection,
+  monthlyBilling,
+}) => {
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
 
   return (
     <>
-      <PlanSelectorHeader>
-        <Text type="h2">Change my plan</Text>
-        <SwitchContainer>
-          <Switch
-            isOn={!monthlyBilling}
-            handleSwitch={() => setBillingInterval(!monthlyBilling)}
-            label="Monthly"
-            id="switch-off"
-          />
-          <p>
-            Yearly <span>20% discount</span>
-          </p>
-        </SwitchContainer>
-      </PlanSelectorHeader>
       <CardContainer>
         {planOptions
           .filter((option) => {
@@ -255,6 +231,8 @@ export const SelectionScreen = ({ planOptions }) => {
                 currentPlan.planInterval === option.planInterval
               }
               key={`${option.planId}_${option.planInterval}`}
+              handlePlanSelection={handlePlanSelection}
+              isPotentialPlan={potencialPlan}
             />
           ))}
       </CardContainer>
