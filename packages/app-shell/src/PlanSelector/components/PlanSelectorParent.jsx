@@ -2,10 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Text from '@bufferapp/ui/Text';
 import Switch from '@bufferapp/ui/Switch';
-import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
-import PropTypes from 'prop-types';
+import { blue } from '@bufferapp/ui/style/colors';
 import { SelectionScreen } from './SelectionScreen';
 import { Summary } from './Summary';
+import PropTypes from 'prop-types';
+
+const Container = styled.div`
+  display: flex;
+  height: 550px;
+  align-items: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border: 1px solid grey; //REMOVE THIS BEFORE MERGING!!!!
+`;
+
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 24px;
+  height: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+`;
 
 const PlanSelectorHeader = styled.header`
   width: 100%;
@@ -24,11 +42,11 @@ const SwitchContainer = styled.div`
     font-weight: 700;
     line-height: 16px;
     letter-spacing: 0px;
-    color: #2c4bff;
+    color: ${blue};
   }
 
   p {
-    color: rgb(61, 61, 61);
+    color: #333333;
     font-family: Roboto, sans-serif;
     font-size: 14px;
     font-weight: 500;
@@ -57,32 +75,35 @@ export const PlanSelectorParent = ({ planOptions }) => {
   }, [monthlyBilling]);
 
   return (
-    <div>
-      <PlanSelectorHeader>
-        <Text type="h2">Change my plan</Text>
-        <SwitchContainer>
-          <Switch
-            isOn={!monthlyBilling}
-            handleSwitch={() => setBillingInterval(!monthlyBilling)}
-            label="Monthly"
-            id="switch-off"
-          />
-          <p>
-            Yearly <span>20% discount</span>
-          </p>
-        </SwitchContainer>
-      </PlanSelectorHeader>
-      <SelectionScreen
-        planOptions={planOptions}
-        selectedPlan={selectedPlan}
-        handlePlanSelection={handlePlanSelection}
-        monthlyBilling={monthlyBilling}
-      />
+    <Container>
+      <Left>
+        <PlanSelectorHeader>
+          <Text type="h2">Change my plan</Text>
+          <SwitchContainer>
+            <Switch
+              isOn={!monthlyBilling}
+              handleSwitch={() => setBillingInterval(!monthlyBilling)}
+              label="Monthly"
+              id="switch-off"
+            />
+            <p>
+              Yearly <span>20% discount</span>
+            </p>
+          </SwitchContainer>
+        </PlanSelectorHeader>
+
+        <SelectionScreen
+          planOptions={planOptions}
+          selectedPlan={selectedPlan}
+          handlePlanSelection={handlePlanSelection}
+          monthlyBilling={monthlyBilling}
+        />
+      </Left>
       <Summary
-        selectedPlan={selectedPlan}
         planOptions={planOptions}
+        selectedPlan={selectedPlan}
         location="planSelector"
       />
-    </div>
+    </Container>
   );
 };

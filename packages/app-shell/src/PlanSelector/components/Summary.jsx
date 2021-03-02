@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Text from '@bufferapp/ui/Text';
 import Button from '@bufferapp/ui/Button';
-import Switch from '@bufferapp/ui/Switch';
-import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
+import { blue, black } from '@bufferapp/ui/style/colors';
 import PropTypes from 'prop-types';
 
 const SummaryContainer = styled.div`
-  width: 255px;
+  min-width: 255px;
   background-color: #fcfcfc;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -52,7 +51,7 @@ const Detail = styled.li`
     height: 4px;
     width: 4px;
     border-radius: 50%;
-    border: 2px solid #2c4bff;
+    border: 2px solid ${blue};
     display: inline-block;
     margin-right: 8px;
   }
@@ -81,7 +80,7 @@ const Price = styled.div`
   }
 
   p {
-    color: black;
+    color: ${black};
     margin: 0 2px;
     font-size: 30px;
     line-height: 30px;
@@ -101,22 +100,38 @@ const ButtonContainer = styled.div`
 `;
 
 export const Summary = ({ selectedPlan, planOptions, location }) => {
-  const getStatus = () => {
-    const currentPlan = planOptions.find((option) => option.isCurrentPlan);
-    const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
-    const selectedPlanString = `${selectedPlan.planId}_${selectedPlan.planInterval}`;
+  const getLabel = () => {
     if (currentPlanString === selectedPlanString) {
-      return `Currently on the ${currentPlan.planName} plan`;
-    } else {
-      //indefinite articles are 'a' or 'an'
-      const indefiniteArticle =
-        selectedPlan.planName == 'Individual' ? 'an' : 'a';
-      return `Changing to ${indefiniteArticle} ${selectedPlan.planName} plan`;
+      return 'Stay On My Current Plan';
+    }
+    if (location === 'planSelector') {
+      return 'Confirm Plan Change';
+    }
+    if (location === 'creditCardForm') {
+      return 'Confirm Payment';
     }
   };
 
-  const label =
-    location === 'planSelector' ? 'Confirm Plan Change' : 'Confirm Payment';
+  const [label, setLabel] = useState(getLabel());
+  const currentPlan = planOptions.find((option) => option.isCurrentPlan);
+  const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
+  const selectedPlanString = selectedPlan
+    ? `${selectedPlan.planId}_${selectedPlan.planInterval}`
+    : '';
+
+  const getStatus = () => {
+    if (currentPlanString === selectedPlanString) {
+      return `Currently on the ${currentPlan.planName} plan`;
+    } else {
+      const indefiniteArticle =
+        selectedPlan?.planName == 'Individual' ? 'an' : 'a';
+      return `Changing to ${indefiniteArticle} ${selectedPlan?.planName} plan`;
+    }
+  };
+
+  useEffect(() => {
+    setLabel(getLabel());
+  }, [selectedPlan]);
 
   return (
     <SummaryContainer>
@@ -127,7 +142,7 @@ export const Summary = ({ selectedPlan, planOptions, location }) => {
             <Text type="p">{getStatus()}</Text>
           </Detail>
           {selectedPlan.summary.details.map((detail) => (
-            <Detail>
+            <Detail key={detail}>
               <Text type="p">{detail}</Text>
             </Detail>
           ))}
@@ -151,7 +166,13 @@ export const Summary = ({ selectedPlan, planOptions, location }) => {
         </Bottom>
       </Body>
       <ButtonContainer>
-        <Button type="primary" onClick={() => {}} label={label} fullWidth />
+        <Button
+          type="primary"
+          onClick={() => {}}
+          label={label}
+          fullWidth
+          disabled={label === 'Stay On My Current Plan'}
+        />
       </ButtonContainer>
     </SummaryContainer>
   );

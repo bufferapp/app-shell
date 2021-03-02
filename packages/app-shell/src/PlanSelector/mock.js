@@ -39,6 +39,7 @@ export default {
                 intervalBasePrice: 0,
                 intervalUnit: 'mo',
               },
+              isRecommended: false,
             },
             {
               planId: 'individual',
@@ -62,6 +63,7 @@ export default {
                 intervalBasePrice: 5,
                 intervalUnit: 'mo',
               },
+              isRecommended: false,
             },
             {
               planId: 'team',
@@ -89,6 +91,7 @@ export default {
                 intervalBasePrice: 10,
                 intervalUnit: 'mo',
               },
+              isRecommended: false,
             },
             {
               planId: 'free',
@@ -111,6 +114,7 @@ export default {
                 intervalBasePrice: 0,
                 intervalUnit: 'yr',
               },
+              isRecommended: false,
             },
             {
               planId: 'individual',
@@ -134,6 +138,7 @@ export default {
                 intervalBasePrice: 48,
                 intervalUnit: 'yr',
               },
+              isRecommended: false,
             },
             {
               planId: 'team',
@@ -161,6 +166,7 @@ export default {
                 intervalBasePrice: 96,
                 intervalUnit: 'yr',
               },
+              isRecommended: true,
             },
           ],
         },
