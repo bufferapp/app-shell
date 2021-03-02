@@ -5,6 +5,7 @@ import Switch from '@bufferapp/ui/Switch';
 import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
 import PropTypes from 'prop-types';
 import { SelectionScreen } from './SelectionScreen';
+import { Summary } from './Summary';
 
 const PlanSelectorHeader = styled.header`
   width: 100%;
@@ -37,22 +38,22 @@ const SwitchContainer = styled.div`
 `;
 
 export const PlanSelectorParent = ({ planOptions }) => {
-  const [potencialPlan, setPotencialPlan] = useState(planOptions[0]);
+  const [selectedPlan, setselectedPlan] = useState(planOptions[0]);
   const [monthlyBilling, setBillingInterval] = useState(true);
 
   const handlePlanSelection = (planString) => {
-    const [potentialPlanId, potentialPlanInterval] = planString.split('_');
+    const [selectedPlanId, selectedPlanInterval] = planString.split('_');
     const selectedPlan = planOptions.find(
       (option) =>
-        potentialPlanId === option.planId &&
-        potentialPlanInterval === option.planInterval
+        selectedPlanId === option.planId &&
+        selectedPlanInterval === option.planInterval
     );
-    setPotencialPlan(selectedPlan);
+    setselectedPlan(selectedPlan);
   };
 
   useEffect(() => {
     const newInterval = monthlyBilling ? 'month' : 'year';
-    handlePlanSelection(`${potencialPlan.planId}_${newInterval}`);
+    handlePlanSelection(`${selectedPlan.planId}_${newInterval}`);
   }, [monthlyBilling]);
 
   return (
@@ -73,11 +74,15 @@ export const PlanSelectorParent = ({ planOptions }) => {
       </PlanSelectorHeader>
       <SelectionScreen
         planOptions={planOptions}
-        potencialPlan={potencialPlan}
+        selectedPlan={selectedPlan}
         handlePlanSelection={handlePlanSelection}
         monthlyBilling={monthlyBilling}
       />
-      <div>Summary!</div>
+      <Summary
+        selectedPlan={selectedPlan}
+        planOptions={planOptions}
+        location="planSelector"
+      />
     </div>
   );
 };

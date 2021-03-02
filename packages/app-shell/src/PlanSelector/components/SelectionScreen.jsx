@@ -89,7 +89,7 @@ const RadioButton = styled.div`
   width: 24px;
   height: 24px;
   background-color: ${(props) =>
-    props.isPotentialPlan ? 'blue' : 'transparent'};
+    props.isselectedPlan ? 'blue' : 'transparent'};
 
   border: 1.5px solid #e0e0e0;
   transition: 0.2s all linear;
@@ -162,7 +162,7 @@ const Card = ({
   summary,
   isCurrentPlan,
   handlePlanSelection,
-  isPotentialPlan,
+  isselectedPlan,
 }) => {
   return (
     <Wrapper
@@ -174,7 +174,7 @@ const Card = ({
         <Text type="h3">{planName}</Text>
         {isCurrentPlan && <CurrentLabel>Current</CurrentLabel>}
       </CardHeader>
-      <RadioButton isPotentialPlan={isPotentialPlan.planId === planId}>
+      <RadioButton isselectedPlan={isselectedPlan.planId === planId}>
         <CheckmarkIcon size="large" />
       </RadioButton>
 
@@ -206,12 +206,10 @@ const Card = ({
 
 export const SelectionScreen = ({
   planOptions,
-  potencialPlan,
+  selectedPlan,
   handlePlanSelection,
   monthlyBilling,
 }) => {
-  const currentPlan = planOptions.find((option) => option.isCurrentPlan);
-
   return (
     <>
       <CardContainer>
@@ -226,13 +224,10 @@ export const SelectionScreen = ({
           .map((option) => (
             <Card
               {...option}
-              isCurrentPlan={
-                currentPlan.planId === option.planId &&
-                currentPlan.planInterval === option.planInterval
-              }
+              isCurrentPlan={option.isCurrentPlan}
               key={`${option.planId}_${option.planInterval}`}
               handlePlanSelection={handlePlanSelection}
-              isPotentialPlan={potencialPlan}
+              isselectedPlan={selectedPlan}
             />
           ))}
       </CardContainer>
