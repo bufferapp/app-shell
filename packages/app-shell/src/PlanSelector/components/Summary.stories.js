@@ -19,5 +19,4 @@ SummaryExample.args = {
     response.data.account.currentOrganization.billing.changePlanOptions,
   selectedPlan:
     response.data.account.currentOrganization.billing.changePlanOptions[1],
-  location: 'planSelector',
 };
