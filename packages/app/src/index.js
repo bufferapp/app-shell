@@ -8,7 +8,13 @@ import { createHttpLink } from 'apollo-link-http'
 import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client';
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      OBBilling: {
+        merge: true,
+      }
+    },
+  }),
   link: createHttpLink({
     uri: 'https://graph.local.buffer.com',
     credentials: 'include',
