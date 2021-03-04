@@ -34,7 +34,9 @@ const AppShell = ({
   const graphqlConfig = apolloClient ? {
     client: apolloClient
   } : {}
-  const { data, loading } = useQuery(QUERY_ACCOUNT, graphqlConfig)
+  const { data, loading, error } = useQuery(QUERY_ACCOUNT, graphqlConfig)
+
+  console.log('merp', loading, data, error)
 
   const user = loading ? {
     name: '...',
