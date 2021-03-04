@@ -4,14 +4,12 @@ import './index.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider, ApolloClient } from '@apollo/client';
+import { createHttpLink } from 'apollo-link-http'
+import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({
+  link: createHttpLink({
     uri: 'https://graph.local.buffer.com',
     credentials: 'include',
   }),
