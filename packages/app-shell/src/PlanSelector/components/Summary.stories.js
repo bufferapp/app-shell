@@ -1,6 +1,6 @@
 import React from 'react';
 import { Summary } from './Summary';
-import response from '../mock';
+import response from '../mocks/mock';
 
 export default {
   title: 'Summary',

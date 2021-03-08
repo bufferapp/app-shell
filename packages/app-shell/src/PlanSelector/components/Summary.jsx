@@ -10,7 +10,7 @@ import {
   Bottom,
   Body,
   SummaryContainer,
-} from './style';
+} from '../style';
 
 export const Summary = ({ selectedPlan, planOptions }) => {
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);

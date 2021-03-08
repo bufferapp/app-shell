@@ -12,7 +12,7 @@ import {
   Price,
   BenefitList,
   Benefit,
-} from './style';
+} from '../style';
 
 const Card = ({
   planId,

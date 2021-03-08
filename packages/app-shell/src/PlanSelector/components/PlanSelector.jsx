@@ -11,9 +11,9 @@ import {
   Right,
   Left,
   Container,
-} from './style';
+} from '../style';
 
-export const PlanSelectorParent = ({ planOptions }) => {
+export const PlanSelector = ({ planOptions }) => {
   const [selectedPlan, setselectedPlan] = useState(planOptions[0]);
   const [monthlyBilling, setBillingInterval] = useState(true);
 
