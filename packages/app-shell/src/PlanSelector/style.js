@@ -1,10 +1,4 @@
-import {
-  grayLighter,
-  blue,
-  grayDark,
-  white,
-  black,
-} from '@bufferapp/ui/style/colors';
+import { grayLighter, blue, grayDark, white } from '@bufferapp/ui/style/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -247,79 +241,5 @@ export const Benefit = styled.li`
   svg {
     fill: ${blue};
     margin-right: 8px;
-  }
-`;
-
-//SUMMARY STYLES
-export const SummaryContainer = styled.div`
-  width: 255px;
-  background-color: #fcfcfc;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  box-shadow: inset 1px 0px 0px #bdbdbd;
-  height: 100%;
-  padding: 70px 0 24px;
-  box-sizing: border-box;
-  position: relative;
-`;
-
-export const Body = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  position: relative;
-  height: calc(100% - 88px);
-`;
-
-export const Bottom = styled.div`
-  position: absolute;
-  bottom: 21px;
-
-  label {
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-`;
-
-export const DetailList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin-top: 16px;
-  margin-bottom: 16px;
-
-  p {
-    margin-top: 0;
-    margin-bottom: 8px;
-    display: inline-block;
-  }
-`;
-
-export const Detail = styled.li`
-  display: flex;
-  align-items: baseline;
-
-  :before {
-    content: '';
-    height: 4px;
-    width: 4px;
-    border-radius: 50%;
-    border: 2px solid ${blue};
-    display: inline-block;
-    margin-right: 8px;
-  }
-`;
-
-export const DiscountReminder = styled.div`
-  display: flex;
-  align-items: center;
-  p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0px;
-    color: ${blue};
-    margin-top: 0;
-    margin-bottom: 0;
   }
 `;

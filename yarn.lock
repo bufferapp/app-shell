@@ -1392,6 +1392,18 @@
     react-is "^16.8.6"
     styled-components "^5.1.1"
 
+"@bufferapp/ui@^5.60.1":
+  version "5.60.1"
+  resolved "https://registry.yarnpkg.com/@bufferapp/ui/-/ui-5.60.1.tgz#8e4b27b0b99f8a721a6e5e48d1dbc80b8416d0d9"
+  integrity sha512-p51Hclpai/XalCwCNm4TaFu7ccE1x6xvEc8KoaPI5d06G1ZEmp286KlHivzqohoe/tgKePHXaWGie2WTONzJ7g==
+  dependencies:
+    "@reach/tooltip" "0.6.2"
+    immutability-helper "^2.9.0"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+    react-is "^16.8.6"
+    styled-components "^5.1.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"

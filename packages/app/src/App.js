@@ -4,6 +4,7 @@ import AppShell, { useOrgSwitcher, useUser, ModalContext, MODALS } from '@buffer
 const AnotherComponentRenderingUserData = () => {
   const user = useUser();
   const switchOrganization = useOrgSwitcher()
+
   return (
     <>
       <h2>You are {user.email} with id {user.id} and you have the following feature flips</h2>
@@ -22,7 +23,7 @@ const ModalTesting = () => (<ModalContext.Consumer>
     {modal => (
       <>
         <h2>Render Modal</h2>
-        <button onClick={() => {modal.openModal(MODALS.paymentMethod)}}>Render Modal</button>
+        <button onClick={() => {modal.openModal(MODALS.planSelector)}}>Render Modal</button>
       </>
     )}
 </ModalContext.Consumer>)

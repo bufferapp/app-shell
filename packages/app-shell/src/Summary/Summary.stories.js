@@ -1,5 +1,5 @@
 import React from 'react';
-import { Summary } from './Summary';
+import Summary from './index';
 import response from '../mocks/mock';
 
 export default {

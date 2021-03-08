@@ -10,9 +10,9 @@ import {
   Bottom,
   Body,
   SummaryContainer,
-} from '../style';
+} from './style';
 
-export const Summary = ({ selectedPlan, planOptions }) => {
+const Summary = ({ selectedPlan, planOptions }) => {
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
   const selectedPlanString = selectedPlan
@@ -93,3 +93,5 @@ export const Summary = ({ selectedPlan, planOptions }) => {
     </SummaryContainer>
   );
 };
+
+export default Summary;

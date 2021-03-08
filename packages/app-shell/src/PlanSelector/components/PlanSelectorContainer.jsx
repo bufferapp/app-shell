@@ -3,7 +3,7 @@ import Text from '@bufferapp/ui/Text';
 import Switch from '@bufferapp/ui/Switch';
 import Button from '@bufferapp/ui/Button';
 import { SelectionScreen } from './SelectionScreen';
-import { Summary } from './Summary';
+import Summary from '../../Summary';
 import {
   ButtonContainer,
   SwitchContainer,
@@ -13,7 +13,8 @@ import {
   Container,
 } from '../style';
 
-export const PlanSelector = ({ planOptions }) => {
+export const PlanSelectorContainer = ({ planOptions }) => {
+  console.log('hey there!');
   const [selectedPlan, setselectedPlan] = useState(planOptions[0]);
   const [monthlyBilling, setBillingInterval] = useState(true);
 
@@ -67,7 +68,6 @@ export const PlanSelector = ({ planOptions }) => {
             </p>
           </SwitchContainer>
         </PlanSelectorHeader>
-
         <SelectionScreen
           planOptions={planOptions}
           selectedPlan={selectedPlan}
@@ -76,11 +76,7 @@ export const PlanSelector = ({ planOptions }) => {
         />
       </Left>
       <Right>
-        <Summary
-          planOptions={planOptions}
-          selectedPlan={selectedPlan}
-          location="planSelector"
-        />
+        <Summary planOptions={planOptions} selectedPlan={selectedPlan} />
         <ButtonContainer>
           <Button
             type="primary"

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SimpleModal from '@bufferapp/ui/SimpleModal';
 import PaymentMethod from '../PaymentMethod';
 import { MODALS } from '../hooks/useModal';
+import PlanSelector from '../PlanSelector';
 
 const ModalContent = ({ modal }) => {
   switch (modal) {
     case MODALS.paymentMethod:
       return (<PaymentMethod />);
     case MODALS.planSelector:
-      return (<div> Plan Selector </div>);
+      return (<PlanSelector />);
     case MODALS.success:
       return (<div> Success </div>);
     default:

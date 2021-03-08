@@ -1,6 +1,6 @@
 import React from 'react';
 import { SelectionScreen } from './SelectionScreen';
-import response from '../mocks/mock';
+import response from '../../mocks/mock';
 
 export default {
   title: 'Selection Screen',

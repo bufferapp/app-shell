@@ -1,13 +1,13 @@
 import React from 'react';
-import { PlanSelector } from './PlanSelector';
-import response from '../mocks/mock';
+import { PlanSelectorContainer } from './PlanSelectorContainer';
+import response from '../../mocks/mock';
 
 export default {
   title: 'Plan Selector',
-  component: PlanSelector,
+  component: PlanSelectorContainer,
 };
 
-const Template = (args) => <PlanSelector {...args} />;
+const Template = (args) => <PlanSelectorContainer {...args} />;
 
 export const AnotherExample = Template.bind({});
 AnotherExample.args = {
