@@ -10,9 +10,9 @@ export default {
           },
           isFree: false,
           canAccessAnalytics: true,
+          canStartTrial: false,
           subscription: {
             trial: {
-              canStartTrial: false,
               isActive: false,
               remainingDays: 0,
             },

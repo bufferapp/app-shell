@@ -32,9 +32,9 @@ export const QUERY_ACCOUNT = gql`
           }
           ... on OBBilling {
             canAccessAnalytics
+            canStartTrial
             subscription {
               trial {
-                canStartTrial
                 isActive
                 remainingDays
               }
