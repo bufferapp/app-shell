@@ -19,18 +19,26 @@ const useButtonOptions = (
   const [label, setLabel] = useState(getLabel(selectedPlan));
 
   const buttonFunction = () => {
+    if (selectedPlan.isCurrentPlan && isActiveTrial && hasPaymentDetails) {
+      return updatePlan;
+    }
+
     if (selectedPlan.planId === 'free') {
       return updatePlan;
-    } else return hasPaymentDetails ? updatePlan : openPaymentModal;
+    }
+
+    if (selectedPlan.isCurrentPlan && !isActiveTrial) {
+      return null;
+    }
+
+    return hasPaymentDetails ? updatePlan : openPaymentModal;
   };
 
-  const [action, setAction] = useState(
-    selectedPlan.isCurrentPlan ? null : buttonFunction
-  );
+  const [action, setAction] = useState(() => buttonFunction());
 
   const updateButton = (selectedPlan) => {
     setLabel(getLabel(selectedPlan));
-    setAction(selectedPlan.isCurrentPlan ? null : buttonFunction);
+    setAction(() => buttonFunction());
   };
 
   return {

@@ -86,7 +86,7 @@ describe('useButtonOptions', () => {
   });
   it("should return {label 'Confirm Upgrade', action: updatePlan} is on a trial and has payment details", () => {
     const selectedPlan = {
-      planId: 'free',
+      planId: 'team',
       planInterval: 'year',
       isCurrentPlan: false,
     };
@@ -109,7 +109,7 @@ describe('useButtonOptions', () => {
   });
   it("should return {label 'Confirm Upgrade', action: openPaymentModal} is on a trial and doesn't have payment details", () => {
     const selectedPlan = {
-      planId: 'free',
+      planId: 'team',
       planInterval: 'year',
       isCurrentPlan: false,
     };
@@ -128,7 +128,7 @@ describe('useButtonOptions', () => {
     );
 
     expect(result.current.label).toBe('Confirm Upgrade');
-    expect(result.current.action).toBe(updatePlan);
+    expect(result.current.action).toBe(openPaymentModal);
   });
   it("should update the label and action when there's a new selectedPlan", () => {
     const selectedPlan = {
