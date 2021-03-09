@@ -4,12 +4,17 @@ const useButtonOptions = (
   selectedPlan,
   updatePlan,
   openPaymentModal,
-  hasPaymentDetails = false
+  hasPaymentDetails,
+  isActiveTrial
 ) => {
-  const getLabel = (selectedPlan) =>
-    selectedPlan.isCurrentPlan
-      ? 'Stay On My Current Plan'
-      : 'Confirm Plan Change';
+  const getLabel = (selectedPlan) => {
+    if (isActiveTrial) {
+      return 'Confirm Upgrade';
+    } else
+      return selectedPlan.isCurrentPlan
+        ? 'Stay On My Current Plan'
+        : 'Confirm Plan Change';
+  };
 
   const [label, setLabel] = useState(getLabel(selectedPlan));
 

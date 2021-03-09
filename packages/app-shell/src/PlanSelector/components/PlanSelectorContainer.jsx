@@ -6,6 +6,7 @@ import { SelectionScreen } from './SelectionScreen';
 import Summary from '../../Summary';
 import useSelectedPlan from '../hooks/useSelectedPlan';
 import useButtonOptions from '../hooks/useButtonOptions';
+import useHeaderLabel from '../hooks/useHeaderLabel';
 import {
   ButtonContainer,
   SwitchContainer,
@@ -23,15 +24,19 @@ export const PlanSelectorContainer = ({
   planOptions,
   openPaymentMethod,
   hasPaymentDetails,
+  isActiveTrial,
 }) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
+
   const { selectedPlan, setSelectedPlan } = useSelectedPlan(planOptions);
   const { label, action, updateButton } = useButtonOptions(
     selectedPlan,
     updatePlan,
     openPaymentMethod,
-    hasPaymentDetails
+    hasPaymentDetails,
+    isActiveTrial
   );
+  const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions);
 
   const handlePlanSelection = (planString) => {
     const [selectedPlanId, selectedPlanInterval] = planString.split('_');
@@ -56,7 +61,7 @@ export const PlanSelectorContainer = ({
     <Container>
       <Left>
         <PlanSelectorHeader>
-          <Text type="h2">Change my plan</Text>
+          <Text type="h2">{headerLabel}</Text>
           <SwitchContainer>
             <Switch
               isOn={!monthlyBilling}

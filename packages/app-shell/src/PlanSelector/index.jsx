@@ -20,6 +20,7 @@ const PlanSelector = () => {
                 user.currentOrganization.billing.paymentDetails
                   .hasPaymentDetails
               }
+              isActiveTrial={user.currentOrganization.billing.subscription.trial.isActive}
             />
           )}
         </ModalContext.Consumer>

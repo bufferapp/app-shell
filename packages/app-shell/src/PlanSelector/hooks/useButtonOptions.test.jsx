@@ -18,8 +18,8 @@ describe('useButtonOptions', () => {
     };
 
     const { result } = renderHook(() => useButtonOptions(selectedPlan));
-    expect(result.current.label === 'Stay On My Current Plan');
-    expect(result.current.action === null);
+    expect(result.current.label).toBe('Stay On My Current Plan');
+    expect(result.current.action).toBe(null);
   });
   it("should return {label 'Confirm Plan Change', action: openPaymentModal} if the user changes plan and doesn't have payment details", () => {
     const selectedPlan = {
@@ -39,7 +39,7 @@ describe('useButtonOptions', () => {
       )
     );
 
-    expect(result.current.label === 'Confirm Plan Change');
+    expect(result.current.label).toBe('Confirm Plan Change');
     expect(result.current.action).toBe(openPaymentModal);
   });
   it("should return {label 'Confirm Plan Change', action: updatePlan} if the user changes plan and does have payment details", () => {
@@ -60,7 +60,7 @@ describe('useButtonOptions', () => {
       )
     );
 
-    expect(result.current.label === 'Confirm Plan Change');
+    expect(result.current.label).toBe('Confirm Plan Change');
     expect(result.current.action).toBe(updatePlan);
   });
   it("should return {label 'Confirm Plan Change', action: updatePlan} if the user changes to a free plan", () => {
@@ -81,7 +81,53 @@ describe('useButtonOptions', () => {
       )
     );
 
-    expect(result.current.label === 'Confirm Plan Change');
+    expect(result.current.label).toBe('Confirm Plan Change');
+    expect(result.current.action).toBe(updatePlan);
+  });
+  it("should return {label 'Confirm Upgrade', action: updatePlan} is on a trial and has payment details", () => {
+    const selectedPlan = {
+      planId: 'free',
+      planInterval: 'year',
+      isCurrentPlan: false,
+    };
+
+    const hasPaymentDetails = true;
+    const isActiveTrial = true;
+
+    const { result } = renderHook(() =>
+      useButtonOptions(
+        selectedPlan,
+        updatePlan,
+        openPaymentModal,
+        hasPaymentDetails,
+        isActiveTrial
+      )
+    );
+
+    expect(result.current.label).toBe('Confirm Upgrade');
+    expect(result.current.action).toBe(updatePlan);
+  });
+  it("should return {label 'Confirm Upgrade', action: openPaymentModal} is on a trial and doesn't have payment details", () => {
+    const selectedPlan = {
+      planId: 'free',
+      planInterval: 'year',
+      isCurrentPlan: false,
+    };
+
+    const hasPaymentDetails = false;
+    const isActiveTrial = true;
+
+    const { result } = renderHook(() =>
+      useButtonOptions(
+        selectedPlan,
+        updatePlan,
+        openPaymentModal,
+        hasPaymentDetails,
+        isActiveTrial
+      )
+    );
+
+    expect(result.current.label).toBe('Confirm Upgrade');
     expect(result.current.action).toBe(updatePlan);
   });
   it("should update the label and action when there's a new selectedPlan", () => {
@@ -103,6 +149,6 @@ describe('useButtonOptions', () => {
       result.current.updateButton(newPlan);
     });
 
-    expect(result.current.label === 'Confirm Plan Change');
+    expect(result.current.label).toBe('Confirm Plan Change');
   });
 });
