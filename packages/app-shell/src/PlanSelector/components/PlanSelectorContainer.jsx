@@ -4,6 +4,7 @@ import Switch from '@bufferapp/ui/Switch';
 import Button from '@bufferapp/ui/Button';
 import { SelectionScreen } from './SelectionScreen';
 import Summary from '../../Summary';
+import useSelectedPlan from '../hooks/useSelectedPlan';
 import {
   ButtonContainer,
   SwitchContainer,
@@ -14,9 +15,8 @@ import {
 } from '../style';
 
 export const PlanSelectorContainer = ({ planOptions }) => {
-  console.log('hey there!');
-  const [selectedPlan, setselectedPlan] = useState(planOptions[0]);
   const [monthlyBilling, setBillingInterval] = useState(true);
+  const { selectedPlan, setSelectedPlan } = useSelectedPlan(planOptions);
 
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
@@ -39,7 +39,7 @@ export const PlanSelectorContainer = ({ planOptions }) => {
         selectedPlanId === option.planId &&
         selectedPlanInterval === option.planInterval
     );
-    setselectedPlan(selectedPlan);
+    setSelectedPlan(selectedPlan);
   };
 
   useEffect(() => {

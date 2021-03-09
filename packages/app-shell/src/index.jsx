@@ -36,7 +36,7 @@ const AppShell = ({
   } : {}
   const { data, loading, error } = useQuery(QUERY_ACCOUNT, graphqlConfig)
 
-  console.log('merp', loading, data, error)
+  console.log('datafetched', loading, data, error)
 
   const user = loading || !data ? {
     name: '...',
