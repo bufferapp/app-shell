@@ -5,6 +5,7 @@ import Button from '@bufferapp/ui/Button';
 import { SelectionScreen } from './SelectionScreen';
 import Summary from '../../Summary';
 import useSelectedPlan from '../hooks/useSelectedPlan';
+import useButtonOptions from '../hooks/useButtonOptions';
 import {
   ButtonContainer,
   SwitchContainer,
@@ -14,23 +15,23 @@ import {
   Container,
 } from '../style';
 
-export const PlanSelectorContainer = ({ planOptions }) => {
+const updatePlan = () => {
+  console.log('update plan');
+};
+
+export const PlanSelectorContainer = ({
+  planOptions,
+  openPaymentMethod,
+  hasPaymentDetails,
+}) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
   const { selectedPlan, setSelectedPlan } = useSelectedPlan(planOptions);
-
-  const currentPlan = planOptions.find((option) => option.isCurrentPlan);
-  const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
-  const selectedPlanString = selectedPlan
-    ? `${selectedPlan.planId}_${selectedPlan.planInterval}`
-    : '';
-
-  const getLabel = () => {
-    return currentPlanString === selectedPlanString
-      ? 'Stay On My Current Plan'
-      : 'Confirm Plan Change';
-  };
-
-  const [label, setLabel] = useState(getLabel());
+  const { label, action, updateButton } = useButtonOptions(
+    selectedPlan,
+    updatePlan,
+    openPaymentMethod,
+    hasPaymentDetails
+  );
 
   const handlePlanSelection = (planString) => {
     const [selectedPlanId, selectedPlanInterval] = planString.split('_');
@@ -48,7 +49,7 @@ export const PlanSelectorContainer = ({ planOptions }) => {
   }, [monthlyBilling]);
 
   useEffect(() => {
-    setLabel(getLabel());
+    updateButton(selectedPlan);
   }, [selectedPlan]);
 
   return (
@@ -80,7 +81,7 @@ export const PlanSelectorContainer = ({ planOptions }) => {
         <ButtonContainer>
           <Button
             type="primary"
-            onClick={() => {}}
+            onClick={action}
             label={label}
             fullWidth
             disabled={label === 'Stay On My Current Plan'}

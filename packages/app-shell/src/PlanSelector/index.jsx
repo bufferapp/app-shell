@@ -16,6 +16,10 @@ const PlanSelector = () => {
               openPaymentMethod={() => {
                 modal.openModal(MODALS.paymentMethod);
               }}
+              hasPaymentDetails={
+                user.currentOrganization.billing.paymentDetails
+                  .hasPaymentDetails
+              }
             />
           )}
         </ModalContext.Consumer>
