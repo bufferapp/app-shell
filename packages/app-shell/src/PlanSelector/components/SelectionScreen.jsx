@@ -107,7 +107,3 @@ export const SelectionScreen = ({
     </CardContainer>
   );
 };
-
-SelectionScreen.propTypes = {};
-
-SelectionScreen.defaultProps = {};
