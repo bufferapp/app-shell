@@ -36,8 +36,6 @@ const AppShell = ({
   } : {}
   const { data, loading, error } = useQuery(QUERY_ACCOUNT, graphqlConfig)
 
-  console.log('datafetched', loading, data, error)
-
   const user = loading || !data ? {
     name: '...',
     email: '...',
