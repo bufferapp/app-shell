@@ -17,8 +17,5 @@
     "app": "lerna exec --scope app -- yarn watch",
     "test": "jest",
     "test:watch": "jest -w"
-  },
-  "dependencies": {
-    "@bufferapp/ui": "^5.62.3"
   }
 }
