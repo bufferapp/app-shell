@@ -1,4 +1,8 @@
 # Changelog
+
+## [2.3.0] - 2021-03-10
+- Update @bufferapp/ui to 5.62.3
+- add PlanSelector modal
 ## [2.2.0] - 2021-03-09
 - Update @bufferapp/ui to 5.60.1
 - add PaymentMethod modal
