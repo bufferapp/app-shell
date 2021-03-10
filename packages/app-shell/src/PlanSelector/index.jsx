@@ -13,7 +13,8 @@ const PlanSelector = () => {
           {(modal) => (
             <PlanSelectorContainer
               planOptions={user.currentOrganization.billing.changePlanOptions}
-              openPaymentMethod={() => {
+              openPaymentMethod={(data) => {
+                console.log('data', data)
                 modal.openModal(MODALS.paymentMethod);
               }}
               hasPaymentDetails={

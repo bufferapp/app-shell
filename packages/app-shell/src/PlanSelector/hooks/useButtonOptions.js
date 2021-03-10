@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-const useButtonOptions = (
+const useButtonOptions = ({
   selectedPlan,
   updatePlan,
-  openPaymentModal,
+  openPaymentMethod,
   hasPaymentDetails,
-  isActiveTrial
-) => {
+  isActiveTrial,
+}) => {
   const getLabel = (selectedPlan) => {
     if (isActiveTrial) {
       return 'Confirm Upgrade';
@@ -28,10 +28,11 @@ const useButtonOptions = (
     }
 
     if (selectedPlan.isCurrentPlan && !isActiveTrial) {
+      
       return null;
     }
 
-    return hasPaymentDetails ? updatePlan : openPaymentModal;
+    return hasPaymentDetails ? updatePlan : openPaymentMethod;
   };
 
   const [action, setAction] = useState(() => buttonFunction());

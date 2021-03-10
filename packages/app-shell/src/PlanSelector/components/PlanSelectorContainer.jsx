@@ -28,29 +28,20 @@ export const PlanSelectorContainer = ({
 }) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
 
-  const { selectedPlan, setSelectedPlan } = useSelectedPlan(planOptions);
-  const { label, action, updateButton } = useButtonOptions(
+  const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions);
+  const { label, action, updateButton } = useButtonOptions({
     selectedPlan,
     updatePlan,
     openPaymentMethod,
     hasPaymentDetails,
-    isActiveTrial
-  );
+    isActiveTrial,
+  });
   const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions);
-
-  const handlePlanSelection = (planString) => {
-    const [selectedPlanId, selectedPlanInterval] = planString.split('_');
-    const selectedPlan = planOptions.find(
-      (option) =>
-        selectedPlanId === option.planId &&
-        selectedPlanInterval === option.planInterval
-    );
-    setSelectedPlan(selectedPlan);
-  };
 
   useEffect(() => {
     const newInterval = monthlyBilling ? 'month' : 'year';
-    handlePlanSelection(`${selectedPlan.planId}_${newInterval}`);
+    const planString = `${selectedPlan.planId}_${newInterval}`;
+    updateSelectedPlan(planString);
   }, [monthlyBilling]);
 
   useEffect(() => {
@@ -77,7 +68,7 @@ export const PlanSelectorContainer = ({
         <SelectionScreen
           planOptions={planOptions}
           selectedPlan={selectedPlan}
-          handlePlanSelection={handlePlanSelection}
+          updateSelectedPlan={updateSelectedPlan}
           monthlyBilling={monthlyBilling}
         />
       </Left>
@@ -86,7 +77,7 @@ export const PlanSelectorContainer = ({
         <ButtonContainer>
           <Button
             type="primary"
-            onClick={action}
+            onClick={() => action(selectedPlan)}
             label={label}
             fullWidth
             disabled={label === 'Stay On My Current Plan'}

@@ -25,14 +25,14 @@ const Card = ({
   priceNote,
   summary,
   isCurrentPlan,
-  handlePlanSelection,
+  updateSelectedPlan,
   selectedPlan,
   recommended,
 }) => {
   return (
     <Wrapper
       tabIndex="0"
-      onClick={(e) => handlePlanSelection(e.target.id)}
+      onClick={(e) => updateSelectedPlan(e.target.id)}
       id={`${planId}_${planInterval}`}
       selectedPlan={selectedPlan === planId}
       aria-label={selectedPlan === planId ? 'checked' : 'unchecked'}
@@ -81,7 +81,7 @@ const Card = ({
 export const SelectionScreen = ({
   planOptions,
   selectedPlan,
-  handlePlanSelection,
+  updateSelectedPlan,
   monthlyBilling,
 }) => {
   return (
@@ -99,7 +99,7 @@ export const SelectionScreen = ({
             {...option}
             isCurrentPlan={option.isCurrentPlan}
             key={`${option.planId}_${option.planInterval}`}
-            handlePlanSelection={handlePlanSelection}
+            updateSelectedPlan={updateSelectedPlan}
             selectedPlan={selectedPlan.planId}
             recommended={option.isRecommended}
           />

@@ -17,7 +17,7 @@ describe('useButtonOptions', () => {
       isCurrentPlan: true,
     };
 
-    const { result } = renderHook(() => useButtonOptions(selectedPlan));
+    const { result } = renderHook(() => useButtonOptions({ selectedPlan }));
     expect(result.current.label).toBe('Stay On My Current Plan');
     expect(result.current.action).toBe(null);
   });
@@ -31,12 +31,12 @@ describe('useButtonOptions', () => {
     const hasPaymentDetails = false;
 
     const { result } = renderHook(() =>
-      useButtonOptions(
+      useButtonOptions({
         selectedPlan,
         updatePlan,
         openPaymentModal,
-        hasPaymentDetails
-      )
+        hasPaymentDetails,
+      })
     );
 
     expect(result.current.label).toBe('Confirm Plan Change');
@@ -52,12 +52,12 @@ describe('useButtonOptions', () => {
     const hasPaymentDetails = true;
 
     const { result } = renderHook(() =>
-      useButtonOptions(
+      useButtonOptions({
         selectedPlan,
         updatePlan,
         openPaymentModal,
-        hasPaymentDetails
-      )
+        hasPaymentDetails,
+      })
     );
 
     expect(result.current.label).toBe('Confirm Plan Change');
@@ -73,12 +73,12 @@ describe('useButtonOptions', () => {
     const hasPaymentDetails = false;
 
     const { result } = renderHook(() =>
-      useButtonOptions(
+      useButtonOptions({
         selectedPlan,
         updatePlan,
         openPaymentModal,
-        hasPaymentDetails
-      )
+        hasPaymentDetails,
+      })
     );
 
     expect(result.current.label).toBe('Confirm Plan Change');
@@ -95,13 +95,13 @@ describe('useButtonOptions', () => {
     const isActiveTrial = true;
 
     const { result } = renderHook(() =>
-      useButtonOptions(
+      useButtonOptions({
         selectedPlan,
         updatePlan,
         openPaymentModal,
         hasPaymentDetails,
-        isActiveTrial
-      )
+        isActiveTrial,
+      })
     );
 
     expect(result.current.label).toBe('Confirm Upgrade');
@@ -118,13 +118,13 @@ describe('useButtonOptions', () => {
     const isActiveTrial = true;
 
     const { result } = renderHook(() =>
-      useButtonOptions(
+      useButtonOptions({
         selectedPlan,
         updatePlan,
         openPaymentModal,
         hasPaymentDetails,
-        isActiveTrial
-      )
+        isActiveTrial,
+      })
     );
 
     expect(result.current.label).toBe('Confirm Upgrade');
@@ -142,7 +142,7 @@ describe('useButtonOptions', () => {
     };
 
     const { result } = renderHook(() =>
-      useButtonOptions(selectedPlan, updatePlan, openPaymentModal)
+      useButtonOptions({ selectedPlan, updatePlan, openPaymentModal })
     );
 
     act(() => {

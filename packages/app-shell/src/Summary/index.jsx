@@ -1,7 +1,7 @@
 import React from 'react';
 import Text from '@bufferapp/ui/Text';
 import Notice from '@bufferapp/ui/Notice';
-import Checkmark from '@bufferapp/ui/Icon/Icons/Checkmark';
+import Coupon from '@bufferapp/ui/Icon/Icons/Coupon';
 import {
   DiscountReminder,
   TotalPrice,
@@ -84,7 +84,7 @@ const Summary = ({ selectedPlan, planOptions }) => {
           </Text>
           {selectedPlan.planInterval === 'year' && (
             <DiscountReminder>
-              <Checkmark />
+              <Coupon />
               <p>20% discount</p>
             </DiscountReminder>
           )}

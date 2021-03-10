@@ -17,7 +17,7 @@ export const Body = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
-  height: calc(100% - 88px);
+  height: calc(100% - 70px);
 `;
 
 export const Bottom = styled.div`
@@ -60,7 +60,6 @@ export const Detail = styled.li`
 
 export const DiscountReminder = styled.div`
   display: flex;
-  align-items: center;
   p {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -71,6 +70,10 @@ export const DiscountReminder = styled.div`
     color: ${blue};
     margin-top: 0;
     margin-bottom: 0;
+  }
+  svg {
+    fill: ${blue};
+    margin-right: 4px;
   }
 `;
 
