@@ -7,6 +7,7 @@ import Summary from '../../Summary';
 import useSelectedPlan from '../hooks/useSelectedPlan';
 import useButtonOptions from '../hooks/useButtonOptions';
 import useHeaderLabel from '../hooks/useHeaderLabel';
+import useUpdateSubscriptionPlan from '../hooks/useUpdateSubscriptionPlan';
 import {
   ButtonContainer,
   SwitchContainer,
@@ -16,12 +17,9 @@ import {
   Container,
 } from '../style';
 
-const updatePlan = () => {
-  console.log('update plan');
-};
-
 export const PlanSelectorContainer = ({
   planOptions,
+  user,
   openPaymentMethod,
   hasPaymentDetails,
   isActiveTrial,
@@ -29,6 +27,12 @@ export const PlanSelectorContainer = ({
   const [monthlyBilling, setBillingInterval] = useState(true);
 
   const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions);
+  const {
+    updateSubscriptionPlan: updatePlan,
+    data,
+    error,
+    processing,
+  } = useUpdateSubscriptionPlan({ user, selectedPlan });
   const { label, action, updateButton } = useButtonOptions({
     selectedPlan,
     updatePlan,
@@ -47,6 +51,12 @@ export const PlanSelectorContainer = ({
   useEffect(() => {
     updateButton(selectedPlan);
   }, [selectedPlan]);
+
+  useEffect(() => {
+    if (data?.billingUpdateSubscriptionPlan){
+      //openSuccess modal
+    }
+  }, [data])
 
   return (
     <Container>
@@ -77,10 +87,10 @@ export const PlanSelectorContainer = ({
         <ButtonContainer>
           <Button
             type="primary"
-            onClick={() => action({plan: selectedPlan})}
-            label={label}
+            onClick={() => action({ plan: selectedPlan })}
+            label={processing ? 'Processing...' : label}
             fullWidth
-            disabled={label === 'Stay On My Current Plan'}
+            disabled={label === 'Stay On My Current Plan' || processing}
           />
         </ButtonContainer>
       </Right>

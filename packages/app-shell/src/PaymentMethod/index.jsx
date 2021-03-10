@@ -11,7 +11,6 @@ const PaymentMethod = () => {
   return (<UserContext.Consumer>
     {user => (<ModalContext.Consumer>
       {({ openModal, data }) => {
-        console.log('data', data)
         return(<StripeProvider>
           <Form
             openPlans={() => {openModal(MODALS.planSelector)}}

@@ -13,6 +13,7 @@ const PlanSelector = () => {
           {(modal) => (
             <PlanSelectorContainer
               planOptions={user.currentOrganization.billing.changePlanOptions}
+              user={user}
               openPaymentMethod={(data) => {
                 modal.openModal(MODALS.paymentMethod, data);
               }}
@@ -20,7 +21,9 @@ const PlanSelector = () => {
                 user.currentOrganization.billing.paymentDetails
                   .hasPaymentDetails
               }
-              isActiveTrial={user.currentOrganization.billing.subscription.trial.isActive}
+              isActiveTrial={
+                user.currentOrganization.billing.subscription.trial.isActive
+              }
             />
           )}
         </ModalContext.Consumer>
