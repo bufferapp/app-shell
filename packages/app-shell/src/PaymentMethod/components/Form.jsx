@@ -85,8 +85,8 @@ const Form = ({
       </Footer>
     </LeftSide>
     <RightSide>
+      {plan && <Summary selectedPlan={plan}/>}
       <Footer>
-        {plan && <Summary selectedPlan={plan}/>}
         <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={processing ? "Processing..." : "Confirm Payment"} fullWidth />
       </Footer>
     </RightSide>

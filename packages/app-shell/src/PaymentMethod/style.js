@@ -12,6 +12,7 @@ import {
 } from '@bufferapp/ui/style/colors';
 import WarningIcon from '@bufferapp/ui/Icon/Icons/Warning';
 import Text from '@bufferapp/ui/Text';
+import { SummaryContainer } from '../Summary/style'
 
 export const StyledError = styled.p`
   margin: 0px;
@@ -138,6 +139,7 @@ export const RightSide = styled.div`
   background: #FCFCFC;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   width: 255px;
   box-shadow: inset 1px 0px 0px #BDBDBD;
 
@@ -148,6 +150,12 @@ export const RightSide = styled.div`
     height: 88px;
     margin-top: auto;
     padding: 24px 20px;
+  }
+
+  ${SummaryContainer} {
+    padding: 0;
+    height: calc(100% - 88px);
+    flex-shrink: 0;
   }
 `;
 

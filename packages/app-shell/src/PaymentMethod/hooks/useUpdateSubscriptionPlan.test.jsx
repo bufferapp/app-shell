@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/react-testing';
 import { renderHook } from '@testing-library/react-hooks'
 
+import { QUERY_ACCOUNT } from '../../graphql/account'
 import { UPDATE_SUBSCRIPTION_PLAN } from '../../graphql/billing'
 import useUpdateSubscriptionPlan from './useUpdateSubscriptionPlan'
 
@@ -19,7 +20,8 @@ describe('useUpdateSubscriptionPlan', () => {
     }
   }
   const plan = {
-      id: 'individual',
+    planId: 'individual',
+    planInterval: 'year',
   }
   const userWithError = {
     currentOrganization: {
@@ -35,8 +37,8 @@ describe('useUpdateSubscriptionPlan', () => {
         query: UPDATE_SUBSCRIPTION_PLAN,
         variables: {
           organizationId: user.currentOrganization.id,
-          plan: plan.id,
-          interval,
+          plan: plan.planId,
+          interval: plan.planInterval,
         },
       },
       newData: mockMutation,
@@ -46,11 +48,19 @@ describe('useUpdateSubscriptionPlan', () => {
         query: UPDATE_SUBSCRIPTION_PLAN,
         variables: {
           organizationId: userWithError.currentOrganization.id,
-          plan: plan.id,
-          interval,
+          plan: plan.planId,
+          interval: plan.planInterval,
         },
       },
       error: new Error('The horror! The horror!')
+    },
+    {
+      request: {
+        query: QUERY_ACCOUNT,
+      },
+      result: {
+        data: {},
+      },
     }
   ]
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/react-testing';
 import { renderHook } from '@testing-library/react-hooks'
 
+import { QUERY_ACCOUNT } from '../../graphql/account'
 import { UPDATE_PAYMENT_METHOD } from '../../graphql/billing'
 import useUpdateUserPaymentMethod from './useUpdateUserPaymentMethod'
 
@@ -47,6 +48,14 @@ describe('useUpdateUserPaymentMethod', () => {
         },
       },
       error: new Error('The horror! The horror!')
+    },
+    {
+      request: {
+        query: QUERY_ACCOUNT,
+      },
+      result: {
+        data: {},
+      },
     }
   ]
 
