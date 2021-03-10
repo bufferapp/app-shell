@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Text from '@bufferapp/ui/Text';
-import PlaceholderIcon from '@bufferapp/ui/Icon/Icons/Placeholder';
+import CardIcon from '@bufferapp/ui/Icon/Icons/Card';
 
 import {
   CardNumberElement,
@@ -53,7 +53,7 @@ const Card = ({ brand }) => {
     case 'mastercard':
       return (<ImgWrapper><img alt='mastercard' src='https://buffer-ui.s3.amazonaws.com/card-icon-mastercard.png' /></ImgWrapper>);
     default:
-      return (<PlaceholderIcon size="medium" />);
+      return (<CardIcon size="medium" />);
   }
 }
 
