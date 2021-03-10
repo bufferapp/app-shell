@@ -19,6 +19,6 @@
     "test:watch": "jest -w"
   },
   "dependencies": {
-    "@bufferapp/ui": "^5.60.1"
+    "@bufferapp/ui": "^5.62.3"
   }
 }
