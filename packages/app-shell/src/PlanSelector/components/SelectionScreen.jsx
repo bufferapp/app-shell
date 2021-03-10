@@ -32,7 +32,9 @@ const Card = ({
   return (
     <Wrapper
       tabIndex="0"
-      onClick={(e) => updateSelectedPlan(e.target.id)}
+      onClick={(e) => {
+        updateSelectedPlan(e.currentTarget.id);
+      }}
       id={`${planId}_${planInterval}`}
       selectedPlan={selectedPlan === planId}
       aria-label={selectedPlan === planId ? 'checked' : 'unchecked'}
