@@ -23,7 +23,7 @@ const ModalTesting = () => (<ModalContext.Consumer>
     {modal => (
       <>
         <h2>Render Modal</h2>
-        <button onClick={() => {modal.openModal(MODALS.planSelector)}}>Render Modal</button>
+        <button onClick={() => {modal.openModal(MODALS.success)}}>Render Modal</button>
       </>
     )}
 </ModalContext.Consumer>)

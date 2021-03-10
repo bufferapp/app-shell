@@ -4,6 +4,7 @@ import SimpleModal from '@bufferapp/ui/SimpleModal';
 import PaymentMethod from '../PaymentMethod';
 import PlanSelector from '../PlanSelector';
 import StartTrial from '../StartTrial';
+import Confirmation from '../Confirmation';
 
 const ModalContent = ({ modal }) => {
   switch (modal) {
@@ -12,7 +13,7 @@ const ModalContent = ({ modal }) => {
     case MODALS.planSelector:
       return (<PlanSelector />);
     case MODALS.success:
-      return (<div> Success </div>);
+      return (<Confirmation />);
     case MODALS.startTrial:
       return (<StartTrial />);
     default:
