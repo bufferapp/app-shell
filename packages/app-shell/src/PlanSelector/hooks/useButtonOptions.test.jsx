@@ -5,7 +5,7 @@ const updatePlan = () => {
   console.log('update the plan');
 };
 
-const openPaymentModal = () => {
+const openPaymentMethod = () => {
   console.log('opens payment modal');
 };
 
@@ -21,7 +21,7 @@ describe('useButtonOptions', () => {
     expect(result.current.label).toBe('Stay On My Current Plan');
     expect(result.current.action).toBe(null);
   });
-  it("should return {label 'Confirm Plan Change', action: openPaymentModal} if the user changes plan and doesn't have payment details", () => {
+  it("should return {label 'Confirm Plan Change', action: openPaymentMethod} if the user changes plan and doesn't have payment details", () => {
     const selectedPlan = {
       planId: 'team',
       planInterval: 'year',
@@ -34,13 +34,13 @@ describe('useButtonOptions', () => {
       useButtonOptions({
         selectedPlan,
         updatePlan,
-        openPaymentModal,
+        openPaymentMethod,
         hasPaymentDetails,
       })
     );
 
     expect(result.current.label).toBe('Confirm Plan Change');
-    expect(result.current.action).toBe(openPaymentModal);
+    expect(result.current.action).toBe(openPaymentMethod);
   });
   it("should return {label 'Confirm Plan Change', action: updatePlan} if the user changes plan and does have payment details", () => {
     const selectedPlan = {
@@ -55,7 +55,7 @@ describe('useButtonOptions', () => {
       useButtonOptions({
         selectedPlan,
         updatePlan,
-        openPaymentModal,
+        openPaymentMethod,
         hasPaymentDetails,
       })
     );
@@ -76,7 +76,7 @@ describe('useButtonOptions', () => {
       useButtonOptions({
         selectedPlan,
         updatePlan,
-        openPaymentModal,
+        openPaymentMethod,
         hasPaymentDetails,
       })
     );
@@ -98,7 +98,7 @@ describe('useButtonOptions', () => {
       useButtonOptions({
         selectedPlan,
         updatePlan,
-        openPaymentModal,
+        openPaymentMethod,
         hasPaymentDetails,
         isActiveTrial,
       })
@@ -107,7 +107,7 @@ describe('useButtonOptions', () => {
     expect(result.current.label).toBe('Confirm Upgrade');
     expect(result.current.action).toBe(updatePlan);
   });
-  it("should return {label 'Confirm Upgrade', action: openPaymentModal} is on a trial and doesn't have payment details", () => {
+  it("should return {label 'Confirm Upgrade', action: openPaymentMethod} is on a trial and doesn't have payment details", () => {
     const selectedPlan = {
       planId: 'team',
       planInterval: 'year',
@@ -121,14 +121,14 @@ describe('useButtonOptions', () => {
       useButtonOptions({
         selectedPlan,
         updatePlan,
-        openPaymentModal,
+        openPaymentMethod,
         hasPaymentDetails,
         isActiveTrial,
       })
     );
 
     expect(result.current.label).toBe('Confirm Upgrade');
-    expect(result.current.action).toBe(openPaymentModal);
+    expect(result.current.action).toBe(openPaymentMethod);
   });
   it("should update the label and action when there's a new selectedPlan", () => {
     const selectedPlan = {
@@ -142,7 +142,7 @@ describe('useButtonOptions', () => {
     };
 
     const { result } = renderHook(() =>
-      useButtonOptions({ selectedPlan, updatePlan, openPaymentModal })
+      useButtonOptions({ selectedPlan, updatePlan, openPaymentMethod })
     );
 
     act(() => {
