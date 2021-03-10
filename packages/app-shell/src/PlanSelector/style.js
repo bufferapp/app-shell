@@ -86,6 +86,7 @@ export const Wrapper = styled.div`
   margin-right: 12px;
   box-sizing: border-box;
   background: ${white};
+  cursor: pointer;
 
   p {
     font-weight: 500;
