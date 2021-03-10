@@ -6,7 +6,8 @@ import {
 
 const StripeProvider = ({ children }) => {
   const isLocal = !!window.location.host.match(/local/);
-  const STRIPE_PUBLISHABLE_KEY = isLocal ?
+  const isDev = !!window.location.host.match(/dev/);
+  const STRIPE_PUBLISHABLE_KEY = (isLocal || isDev) ?
     // test Stripe Publishable Key
     'pk_test_CvOaedJTBPQLmI0YSnQsitzN' :
     // production Stripe Publishable Key
