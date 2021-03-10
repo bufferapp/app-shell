@@ -14,8 +14,7 @@ const PlanSelector = () => {
             <PlanSelectorContainer
               planOptions={user.currentOrganization.billing.changePlanOptions}
               openPaymentMethod={(data) => {
-                console.log('data', data)
-                modal.openModal(MODALS.paymentMethod);
+                modal.openModal(MODALS.paymentMethod, data);
               }}
               hasPaymentDetails={
                 user.currentOrganization.billing.paymentDetails

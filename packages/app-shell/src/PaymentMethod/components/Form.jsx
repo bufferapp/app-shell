@@ -13,6 +13,7 @@ import {
   Error,
 } from '../style'
 import Field from './Field'
+import Summary from '../../Summary'
 
 import useSetupIntent from '../hooks/useSetupIntent';
 import useCreatePaymentMethod from '../hooks/useCreatePaymentMethod';
@@ -24,7 +25,6 @@ const Form = ({
   openPlans,
   openSuccess,
   plan,
-  interval,
 }) => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false);
@@ -46,7 +46,6 @@ const Form = ({
     user,
     paymentMethod,
     plan,
-    interval,
     hasPaymentMethod,
   })
 
@@ -61,6 +60,8 @@ const Form = ({
       openSuccess(userPaymentMethod)
     }
   }, [newPlan])
+
+  console.log('plan', plan)
 
   return (<StyledForm>
     <LeftSide>
@@ -85,6 +86,7 @@ const Form = ({
     </LeftSide>
     <RightSide>
       <Footer>
+        {plan && <Summary selectedPlan={plan}/>}
         <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={processing ? "Processing..." : "Confirm Payment"} fullWidth />
       </Footer>
     </RightSide>

@@ -77,7 +77,7 @@ export const PlanSelectorContainer = ({
         <ButtonContainer>
           <Button
             type="primary"
-            onClick={() => action(selectedPlan)}
+            onClick={() => action({plan: selectedPlan})}
             label={label}
             fullWidth
             disabled={label === 'Stay On My Current Plan'}

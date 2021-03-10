@@ -11,8 +11,9 @@ import {
   Body,
   SummaryContainer,
 } from './style';
+import { UserContext } from '../context/User';
 
-const Summary = ({ selectedPlan, planOptions }) => {
+const Summary = ({ planOptions, selectedPlan }) => {
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
   const selectedPlanString = selectedPlan
@@ -94,4 +95,17 @@ const Summary = ({ selectedPlan, planOptions }) => {
   );
 };
 
-export default Summary;
+const SummaryProvider = ({ selectedPlan }) => {
+  return (
+    <UserContext.Consumer>
+      {(user) => (
+        <Summary
+          planOptions={user.currentOrganization.billing.changePlanOptions}
+          selectedPlan={selectedPlan}
+        />
+      )}
+    </UserContext.Consumer>
+  );
+};
+
+export default SummaryProvider;

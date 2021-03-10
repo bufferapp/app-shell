@@ -10,15 +10,16 @@ import Form from './components/Form'
 const PaymentMethod = () => {
   return (<UserContext.Consumer>
     {user => (<ModalContext.Consumer>
-      {({ openModal, data }) => (<StripeProvider>
+      {({ openModal, data }) => {
+        console.log('data', data)
+        return(<StripeProvider>
           <Form
             openPlans={() => {openModal(MODALS.planSelector)}}
             openSuccess={(newData) => {openModal(MODALS.success, newData)}}
             user={user}
             plan={data? data.plan : null}
-            interval={data ? data.interval : null}
           />
-        </StripeProvider>)
+        </StripeProvider>)}
       }</ModalContext.Consumer>)
     }
   </UserContext.Consumer>)
