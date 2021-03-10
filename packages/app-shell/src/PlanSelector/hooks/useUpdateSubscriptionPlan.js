@@ -13,6 +13,9 @@ const useUpdateSubscriptionPlan = ({ user, selectedPlan }) => {
   );
 
   useEffect(() => {
+    if (!user || !selectedPlan) {
+      return;
+    }
     if (processing) {
       updateSubscriptionPlan({
         variables: {
