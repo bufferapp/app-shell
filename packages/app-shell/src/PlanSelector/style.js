@@ -7,7 +7,11 @@ export const Container = styled.div`
   align-items: center;
   border-radius: 8px;
   box-sizing: border-box;
-  border: 1px solid grey; //REMOVE THIS BEFORE MERGING!!!!
+`;
+
+export const LoadingContainer = styled(Container)`
+  width: 700px;
+  justify-content: center;
 `;
 
 export const Left = styled.div`
@@ -87,6 +91,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   background: ${white};
   cursor: pointer;
+  max-width: 300px;
 
   p {
     font-weight: 500;
