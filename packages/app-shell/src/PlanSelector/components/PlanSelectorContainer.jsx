@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Text from '@bufferapp/ui/Text';
 import Switch from '@bufferapp/ui/Switch';
 import Button from '@bufferapp/ui/Button';
-import Loader from '@bufferapp/ui/Loader';
 import { SelectionScreen } from './SelectionScreen';
 import Summary from '../../Summary';
 import useSelectedPlan from '../hooks/useSelectedPlan';
@@ -16,7 +15,6 @@ import {
   Right,
   Left,
   Container,
-  LoadingContainer,
 } from '../style';
 
 export const PlanSelectorContainer = ({
@@ -27,7 +25,6 @@ export const PlanSelectorContainer = ({
   isActiveTrial,
 }) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
-  const [loading, setLoading] = useState(true);
 
   const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions);
   const {
@@ -46,12 +43,6 @@ export const PlanSelectorContainer = ({
   const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions);
 
   useEffect(() => {
-    if (planOptions) {
-      setLoading(false);
-    }
-  }, [planOptions]);
-
-  useEffect(() => {
     const newInterval = monthlyBilling ? 'month' : 'year';
     const planString = `${selectedPlan.planId}_${newInterval}`;
     updateSelectedPlan(planString);
@@ -68,49 +59,41 @@ export const PlanSelectorContainer = ({
   }, [data]);
 
   return (
-    <>
-      {loading ? (
-        <LoadingContainer>
-          <Loader />
-        </LoadingContainer>
-      ) : (
-        <Container>
-          <Left>
-            <PlanSelectorHeader>
-              <Text type="h2">{headerLabel}</Text>
-              <SwitchContainer>
-                <Switch
-                  isOn={!monthlyBilling}
-                  handleSwitch={() => setBillingInterval(!monthlyBilling)}
-                  label="Monthly"
-                  id="switch-off"
-                />
-                <p>
-                  Yearly <span>20% discount</span>
-                </p>
-              </SwitchContainer>
-            </PlanSelectorHeader>
-            <SelectionScreen
-              planOptions={planOptions}
-              selectedPlan={selectedPlan}
-              updateSelectedPlan={updateSelectedPlan}
-              monthlyBilling={monthlyBilling}
+    <Container>
+      <Left>
+        <PlanSelectorHeader>
+          <Text type="h2">{headerLabel}</Text>
+          <SwitchContainer>
+            <Switch
+              isOn={!monthlyBilling}
+              handleSwitch={() => setBillingInterval(!monthlyBilling)}
+              label="Monthly"
+              id="switch-off"
             />
-          </Left>
-          <Right>
-            <Summary planOptions={planOptions} selectedPlan={selectedPlan} />
-            <ButtonContainer>
-              <Button
-                type="primary"
-                onClick={() => action({ plan: selectedPlan })}
-                label={processing ? 'Processing...' : label}
-                fullWidth
-                disabled={label === 'Stay On My Current Plan' || processing}
-              />
-            </ButtonContainer>
-          </Right>
-        </Container>
-      )}
-    </>
+            <p>
+              Yearly <span>20% discount</span>
+            </p>
+          </SwitchContainer>
+        </PlanSelectorHeader>
+        <SelectionScreen
+          planOptions={planOptions}
+          selectedPlan={selectedPlan}
+          updateSelectedPlan={updateSelectedPlan}
+          monthlyBilling={monthlyBilling}
+        />
+      </Left>
+      <Right>
+        <Summary planOptions={planOptions} selectedPlan={selectedPlan} />
+        <ButtonContainer>
+          <Button
+            type="primary"
+            onClick={() => action({ plan: selectedPlan })}
+            label={processing ? 'Processing...' : label}
+            fullWidth
+            disabled={label === 'Stay On My Current Plan' || processing}
+          />
+        </ButtonContainer>
+      </Right>
+    </Container>
   );
 };
