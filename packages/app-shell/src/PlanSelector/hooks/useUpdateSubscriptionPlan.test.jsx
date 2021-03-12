@@ -125,7 +125,6 @@ describe('useUpdateSubscriptionPlan', () => {
     act(() => {
       result.current.updateSubscriptionPlan();
     });
-    console.log(result);
     await waitForNextUpdate();
     await expect(result.current.error).toEqual(mocks[1].error);
   });

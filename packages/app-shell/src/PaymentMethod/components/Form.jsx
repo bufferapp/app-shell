@@ -61,8 +61,6 @@ const Form = ({
     }
   }, [newPlan])
 
-  console.log('plan', plan)
-
   return (<StyledForm>
     <LeftSide>
       <Text type='h2'>Billing Details</Text>

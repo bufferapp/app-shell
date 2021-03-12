@@ -34,6 +34,7 @@ const PlanSelector = () => {
                 isActiveTrial={
                   user.currentOrganization.billing.subscription.trial.isActive
                 }
+                openSuccess={(newData) => {openModal(MODALS.success, newData)}}
               />
             );
           }}

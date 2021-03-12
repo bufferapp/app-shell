@@ -23,6 +23,7 @@ export const PlanSelectorContainer = ({
   openPaymentMethod,
   hasPaymentDetails,
   isActiveTrial,
+  openSuccess,
 }) => {
   const [monthlyBilling, setBillingInterval] = useState(true);
 
@@ -54,7 +55,7 @@ export const PlanSelectorContainer = ({
 
   useEffect(() => {
     if (data?.billingUpdateSubscriptionPlan) {
-      //openSuccess modal
+      (selectedPlan) => openSuccess(selectedPlan);
     }
   }, [data]);
 
