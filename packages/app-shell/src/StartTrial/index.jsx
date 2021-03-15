@@ -43,7 +43,7 @@ const StartTrial = ({ user, openModal}) => {
 
   useEffect(() => {
     if (trial) {
-      openModal(MODALS.success, { trial })
+      openModal(MODALS.success, { startedTrial: true })
     }
   }, [trial])
 
