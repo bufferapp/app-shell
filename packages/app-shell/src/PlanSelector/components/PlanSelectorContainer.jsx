@@ -16,6 +16,7 @@ import {
   Left,
   Container,
 } from '../style';
+import useInterval from '../hooks/useInterval';
 
 export const PlanSelectorContainer = ({
   planOptions,
@@ -25,8 +26,7 @@ export const PlanSelectorContainer = ({
   isActiveTrial,
   openSuccess,
 }) => {
-  const [monthlyBilling, setBillingInterval] = useState(true);
-
+  const { monthlyBilling, setBillingInterval } = useInterval(planOptions);
   const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions);
   const {
     updateSubscriptionPlan: updatePlan,
@@ -55,7 +55,7 @@ export const PlanSelectorContainer = ({
 
   useEffect(() => {
     if (data?.billingUpdateSubscriptionPlan) {
-      (selectedPlan) => openSuccess({selectedPlan});
+      (selectedPlan) => openSuccess({ selectedPlan });
     }
   }, [data]);
 
