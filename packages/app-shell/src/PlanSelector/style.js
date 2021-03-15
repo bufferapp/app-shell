@@ -39,6 +39,11 @@ export const PlanSelectorHeader = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const SwitchContainer = styled.div`
