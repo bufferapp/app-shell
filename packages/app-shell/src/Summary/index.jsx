@@ -14,7 +14,6 @@ import {
 import { UserContext } from '../context/User';
 
 const Summary = ({ planOptions, selectedPlan, fromPlanSelector }) => {
-  console.log('boo', fromPlanSelector);
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
   const selectedPlanString = selectedPlan
