@@ -61,7 +61,7 @@ const Form = ({
 
   useEffect(() => {
     if (newPlan) {
-      openSuccess({selectedPlan: newPlan})
+      openSuccess({selectedPlan: plan})
     }
   }, [newPlan])
 

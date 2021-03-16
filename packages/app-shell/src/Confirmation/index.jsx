@@ -45,7 +45,7 @@ const Screen = ({
   startedTrial,
   closeModal,
 }) => {
-  const planName = selectedPlan.planName;
+  const planName = selectedPlan ? selectedPlan.planName : null;
   const { label, description, buttonCopy } = useCopy({
     planName,
     onlyUpdatedCardDetails,
@@ -69,10 +69,6 @@ const Screen = ({
   );
 };
 
-const mockSelectedPlan = { planId: 'team', planName: 'Team' };
-const onlyUpdatedCardDetails = false;
-const startedTrial = false;
-
 const Confirmation = () => {
   return (
     <UserContext.Consumer>
@@ -80,9 +76,9 @@ const Confirmation = () => {
         <ModalContext.Consumer>
           {({ openModal, data }) => (
             <Screen
-              selectedPlan={mockSelectedPlan} //data.selectedPlan
-              onlyUpdatedCardDetails={onlyUpdatedCardDetails} //data.onlyUpdatedCardDetails
-              startedTrial={startedTrial} //data.isTrial
+              selectedPlan={data.selectedPlan}
+              onlyUpdatedCardDetails={data.onlyUpdatedCardDetails}
+              startedTrial={data.startedTrial}
               closeModal={() => {
                 openModal(null);
               }}

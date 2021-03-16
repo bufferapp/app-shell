@@ -55,7 +55,7 @@ export const PlanSelectorContainer = ({
 
   useEffect(() => {
     if (data?.billingUpdateSubscriptionPlan) {
-      (selectedPlan) => openSuccess({ selectedPlan });
+      openSuccess({ selectedPlan });
     }
   }, [data]);
 
