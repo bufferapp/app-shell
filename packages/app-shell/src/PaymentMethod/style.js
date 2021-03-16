@@ -12,7 +12,7 @@ import {
 } from '@bufferapp/ui/style/colors';
 import WarningIcon from '@bufferapp/ui/Icon/Icons/Warning';
 import Text from '@bufferapp/ui/Text';
-import { SummaryContainer } from '../Summary/style'
+import { SummaryContainer } from '../Summary/style';
 
 export const StyledError = styled.p`
   margin: 0px;
@@ -37,9 +37,14 @@ export const StyledError = styled.p`
 
 export const Error = ({ error }) => (
   <StyledError aria-live="polite">
-    {error && <><WarningIcon /><Text>{error.message}</Text></>}
+    {error && (
+      <>
+        <WarningIcon />
+        <Text>{error.message}</Text>
+      </>
+    )}
   </StyledError>
-)
+);
 
 export const Form = styled.form`
   display: flex;
@@ -47,11 +52,10 @@ export const Form = styled.form`
   width: 920px;
   box-sizing: border-box;
 
-  background: url(https://buffer-ui.s3.amazonaws.com/Billing+Screen+-+Background.png);
+  background: url('https://buffer-ui.s3.amazonaws.com/Billing+Screen+-+Background.png');
   background-size: 39%;
   background-repeat: no-repeat;
   background-position-x: 55%;
-  }
 `;
 
 export const Footer = styled.div`
@@ -81,20 +85,20 @@ export const Field = styled.div`
 export const Input = styled.div`
   background: #ffffff;
   box-sizing: border-box;
-  border: 1px solid ${({ focus, hasError }) => {
+  border: 1px solid
+    ${({ focus, hasError }) => {
       if (focus) {
         return hasError ? redDark : blue;
       }
       return gray;
-    }
-  };
-  box-shadow: 0px 0px 0px 3px ${({ focus, hasError }) => {
+    }};
+  box-shadow: 0px 0px 0px 3px
+    ${({ focus, hasError }) => {
       if (focus) {
         return hasError ? redLighter : boxShadow;
       }
-      return "transparent";
-    }
-  };
+      return 'transparent';
+    }};
   border-radius: 5px;
   padding: 16px;
   height: 54px;
@@ -105,9 +109,8 @@ export const Input = styled.div`
   margin-bottom: 8px;
 
   svg {
-    color: ${({ hasError }) => hasError ? redDark : grayLight}
+    color: ${({ hasError }) => (hasError ? redDark : grayLight)};
   }
-
 `;
 
 export const DoubleFields = styled.div`
@@ -136,27 +139,27 @@ export const LeftSide = styled.div`
 `;
 
 export const RightSide = styled.div`
-  background: #FCFCFC;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 255px;
-  box-shadow: inset 1px 0px 0px #BDBDBD;
+  height: 100%;
+  position: relative;
 
-  ${Footer} {
-    background-color: ${grayLighter};
-    box-shadow: inset 1px 0px 0px #BDBDBD;
-    box-sizing: border-box;
-    height: 88px;
-    margin-top: auto;
-    padding: 24px 20px;
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
   }
+`;
 
-  ${SummaryContainer} {
-    padding: 0;
-    height: calc(100% - 88px);
-    flex-shrink: 0;
-  }
+export const ButtonContainer = styled.div`
+  background: #f5f5f5;
+  border-bottom-right-radius: 8px;
+  height: 88px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-shadow: inset 1px 0px 0px #bdbdbd;
 `;
 
 export const ImgWrapper = styled.div`

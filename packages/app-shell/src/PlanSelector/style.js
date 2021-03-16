@@ -33,6 +33,11 @@ export const Right = styled.div`
   flex-direction: column;
   height: 100%;
   position: relative;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 `;
 
 export const PlanSelectorHeader = styled.header`

@@ -84,7 +84,7 @@ export const PlanSelectorContainer = ({
         />
       </Left>
       <Right>
-        <Summary planOptions={planOptions} selectedPlan={selectedPlan} />
+        <Summary selectedPlan={selectedPlan} fromPlanSelector={true}/>
         <ButtonContainer>
           <Button
             type="primary"

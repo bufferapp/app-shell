@@ -11,6 +11,7 @@ import {
   LeftSide,
   RightSide,
   Error,
+  ButtonContainer
 } from '../style'
 import Field from './Field'
 import Summary from '../../Summary'
@@ -88,9 +89,9 @@ const Form = ({
     </LeftSide>
     <RightSide>
       {plan && <Summary selectedPlan={plan}/>}
-      <Footer>
-        <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={processing ? "Processing..." : "Confirm Payment"} fullWidth />
-      </Footer>
+      <ButtonContainer>
+        <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={processing ? "Processing..." : plan ? "Confirm Payment" : 'Update Payment Details'} fullWidth />
+      </ButtonContainer>
     </RightSide>
   </StyledForm>)
 }
