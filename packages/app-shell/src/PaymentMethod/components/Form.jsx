@@ -51,8 +51,11 @@ const Form = ({
 
   useEffect(() => {
     if (paymentMethod) {
-      setHasPaymentMethod(true)
-      openSuccess({onlyUpdatedCardDetails: true})
+      if (!plan) {
+        openSuccess({onlyUpdatedCardDetails: true})
+      } else {
+        setHasPaymentMethod(true)
+      }
     }
   }, [userPaymentMethod])
 
