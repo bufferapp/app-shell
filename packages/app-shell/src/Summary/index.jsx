@@ -61,7 +61,7 @@ const Summary = ({ planOptions, selectedPlan, fromPlanSelector }) => {
         ) : (
           <DetailList>
             <Detail>
-              <Text type="p">Paying for {currentPlan.planName} plan</Text>
+              <Text type="p">Paying for {selectedPlan.planName} plan</Text>
             </Detail>
             <Detail>
               <Text type="p">First payment today</Text>
