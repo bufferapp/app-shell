@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserContext } from '../context/User';
 import { ModalContext } from '../context/Modal';
-import useCopy from './hooks/useCopy';
+import getCopy from './getCopy';
 import styled from 'styled-components';
 import Text from '@bufferapp/ui/Text';
 import Button from '@bufferapp/ui/Button';
@@ -46,7 +46,7 @@ const Screen = ({
   closeModal,
 }) => {
   const planName = selectedPlan ? selectedPlan.planName : null;
-  const { label, description, buttonCopy } = useCopy({
+  const { label, description, buttonCopy } = getCopy({
     planName,
     onlyUpdatedCardDetails,
     startedTrial,

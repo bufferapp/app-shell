@@ -1,11 +1,11 @@
-import useCopy from './useCopy';
+import getCopy from './getCopy';
 import { renderHook } from '@testing-library/react-hooks';
 
-describe('useCopy', () => {
+describe('getCopy', () => {
   it('should return label, description and buttonCopy for a team/individual plan change', () => {
     const planName = 'Team';
 
-    const { result } = renderHook(() => useCopy({ planName }));
+    const { result } = renderHook(() => getCopy({ planName }));
 
     expect(result.current.label).toBe('Congrats! Welcome to the Team plan');
     expect(result.current.description).toBe(
@@ -16,7 +16,7 @@ describe('useCopy', () => {
   it('should return label, description and buttonCopy for a free plan change', () => {
     const planName = 'Free';
 
-    const { result } = renderHook(() => useCopy({ planName }));
+    const { result } = renderHook(() => getCopy({ planName }));
 
     expect(result.current.label).toBe('Congrats! You are now on the Free plan');
     expect(result.current.description).toBe(
@@ -25,11 +25,11 @@ describe('useCopy', () => {
     expect(result.current.buttonCopy).toBe("Great. Let's Go");
   });
   it('should return label, description and buttonCopy for a billing info change', () => {
-    const planName = 'Free';
+    const planName = null;
     const onlyUpdatedCardDetails = true;
 
     const { result } = renderHook(() =>
-      useCopy({ planName, onlyUpdatedCardDetails })
+      getCopy({ planName, onlyUpdatedCardDetails })
     );
 
     expect(result.current.label).toBe('Your billing details are now updated');
@@ -42,7 +42,7 @@ describe('useCopy', () => {
     const planName = 'Team';
     const startedTrial = true;
 
-    const { result } = renderHook(() => useCopy({ planName, startedTrial }));
+    const { result } = renderHook(() => getCopy({ planName, startedTrial }));
 
     expect(result.current.label).toBe(
       'Congrats! You are now starting your trial'
