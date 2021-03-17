@@ -16,7 +16,8 @@ const ScreenContainer = styled.div`
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: bottom;
-  background-image: url('https://buffer-ui.s3.amazonaws.com/Confirmation+Screen+-+Background.png');
+  background-image: url('https://buffer-ui.s3.amazonaws.com/Confirmation+Illustration.png');
+  background-size: 445px;
   padding: 24px;
 
   p,

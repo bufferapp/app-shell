@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
-import {
-  black,
-  blue,
-} from '@bufferapp/ui/style/colors';
+import { black, blue } from '@bufferapp/ui/style/colors';
 
-import { StyledError } from '../PaymentMethod/style'
+import { StyledError } from '../PaymentMethod/style';
 
 export const Holder = styled.div`
   display: flex;
@@ -15,13 +12,15 @@ export const Holder = styled.div`
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: bottom;
-  background-image: url('https://buffer-ui.s3.amazonaws.com/Confirmation+Screen+-+Background.png');
+  background-image: url('https://buffer-ui.s3.amazonaws.com/Confirmation+Illustration.png');
+  background-size: 445px;
   padding: 24px;
 
-  p, h1 {
+  p,
+  h1 {
     color: ${black};
   }
-`
+`;
 
 export const Content = styled.div`
   width: 50%;
@@ -36,7 +35,7 @@ export const Content = styled.div`
   ol {
     list-style: none;
     padding: 0;
-    
+
     li {
       margin-bottom: 8px;
       font-size: 14px;
@@ -52,7 +51,7 @@ export const Content = styled.div`
     margin-top: 6px;
     max-width: 100%;
   }
-`
+`;
 
 export const Ctas = styled.div`
   display: flex;
@@ -60,4 +59,4 @@ export const Ctas = styled.div`
       margin-right: 8px;
     }
   }
-`
+`;
