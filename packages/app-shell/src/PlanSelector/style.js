@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  height: 550px;
+  height: 580px;
   align-items: center;
   border-radius: 8px;
   box-sizing: border-box;
@@ -44,6 +44,7 @@ export const PlanSelectorHeader = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 
   h2 {
     margin-top: 20px;
@@ -127,7 +128,7 @@ export const CardContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 
   div:last-child {
     margin-right: 0;
