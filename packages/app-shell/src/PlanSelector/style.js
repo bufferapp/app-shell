@@ -91,7 +91,7 @@ export const ButtonContainer = styled.div`
 
 export const Wrapper = styled.div`
   border: ${(props) =>
-    props.selectedPlan ? `1px solid ${blue}` : '1px solid #b8b8b8'};
+    props.selectedPlan ? `2px solid ${blue}` : '2px solid rgb(224, 224, 224)'};
   border-radius: 3px;
   height: 420px;
   position: relative;
@@ -113,12 +113,12 @@ export const Wrapper = styled.div`
   }
 
   &:focus {
-    border: 1px solid ${blue};
+    border: 2px solid ${blue};
     outline: none;
   }
 
   &:hover {
-    border: 1px solid ${blue};
+    border: 2px solid ${blue};
     outline: none;
   }
 `;
@@ -189,7 +189,8 @@ export const RadioButton = styled.div`
   background-color: ${(props) =>
     props.selectedPlan ? `${blue}` : 'transparent'};
 
-  border: 1.5px solid #e0e0e0;
+  border: ${(props) =>
+    props.selectedPlan ? `2px solid ${blue}` : '2px solid rgb(224, 224, 224)'};
   transition: 0.2s all linear;
   margin-right: 5px;
 
