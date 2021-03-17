@@ -13,7 +13,12 @@ import {
 } from './style';
 import { UserContext } from '../context/User';
 
-const Summary = ({ planOptions, selectedPlan, fromPlanSelector }) => {
+const Summary = ({
+  planOptions,
+  isActiveTrial,
+  selectedPlan,
+  fromPlanSelector,
+}) => {
   const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
   const selectedPlanString = selectedPlan
@@ -22,7 +27,8 @@ const Summary = ({ planOptions, selectedPlan, fromPlanSelector }) => {
 
   const getStatus = () => {
     if (currentPlanString === selectedPlanString) {
-      return `Currently on the ${currentPlan.planName} plan`;
+      const type = isActiveTrial ? 'trial' : 'plan';
+      return `Currently on the ${currentPlan.planName} ${type}`;
     } else {
       const indefiniteArticle =
         selectedPlan?.planName == 'Individual' ? 'an' : 'a';
@@ -121,13 +127,18 @@ const Summary = ({ planOptions, selectedPlan, fromPlanSelector }) => {
 const SummaryProvider = ({ selectedPlan, fromPlanSelector }) => {
   return (
     <UserContext.Consumer>
-      {(user) => (
-        <Summary
-          planOptions={user.currentOrganization.billing.changePlanOptions}
-          selectedPlan={selectedPlan}
-          fromPlanSelector={fromPlanSelector}
-        />
-      )}
+      {(user) => {
+        return (
+          <Summary
+            planOptions={user.currentOrganization.billing.changePlanOptions}
+            isActiveTrial={
+              user.currentOrganization.billing.subscription.trial?.isActive
+            }
+            selectedPlan={selectedPlan}
+            fromPlanSelector={fromPlanSelector}
+          />
+        );
+      }}
     </UserContext.Consumer>
   );
 };
