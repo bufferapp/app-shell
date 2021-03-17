@@ -126,3 +126,12 @@ export const TotalPrice = styled(Price)`
     line-height: 30px;
   }
 `;
+
+export const BoldPrice = styled.span`
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0px;
+`;

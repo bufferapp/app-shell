@@ -10,6 +10,7 @@ import {
   Bottom,
   Body,
   SummaryContainer,
+  BoldPrice
 } from './style';
 import { UserContext } from '../context/User';
 
@@ -126,9 +127,13 @@ const Summary = ({
               {/* this ends up reading: # social channels x base price */}
               {`${selectedPlan.channelsQuantity} social channel${
                 selectedPlan.channelsQuantity > 1 ? 's' : ''
-              } x ${selectedPlan.currency}${
-                selectedPlan.summary.intervalBasePrice
-              }`}
+              } x `}
+              {
+                <BoldPrice>
+                  {selectedPlan.currency}
+                  {selectedPlan.summary.intervalBasePrice}
+                </BoldPrice>
+              }
             </Text>
           ) : (
             <Text type="label" color="grayDark">
