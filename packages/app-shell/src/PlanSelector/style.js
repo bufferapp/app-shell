@@ -229,6 +229,7 @@ export const Price = styled.div`
     color: black;
     margin-left: 2px;
     margin-right: 2px;
+    font-weight: 600;
   }
 `;
 
