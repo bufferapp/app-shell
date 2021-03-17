@@ -127,6 +127,7 @@ export const CardContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 30px;
 
   div:last-child {
     margin-right: 0;
