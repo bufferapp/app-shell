@@ -137,3 +137,19 @@ export const BoldPrice = styled.span`
   line-height: 17px;
   letter-spacing: 0px;
 `;
+
+export const Notice = styled.div`
+  border: 2px solid rgb(240, 233, 195);
+  background: rgb(255, 252, 235) none repeat scroll 0% 0%;
+  border-radius: 4px;
+  padding: 16px 16px;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+
+  span {
+    color: #625920;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+`;

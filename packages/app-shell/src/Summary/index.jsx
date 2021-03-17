@@ -1,6 +1,5 @@
 import React from 'react';
 import Text from '@bufferapp/ui/Text';
-import Notice from '@bufferapp/ui/Notice';
 import Coupon from '@bufferapp/ui/Icon/Icons/Coupon';
 import {
   DiscountReminder,
@@ -10,7 +9,8 @@ import {
   Bottom,
   Body,
   SummaryContainer,
-  BoldPrice
+  BoldPrice,
+  Notice
 } from './style';
 import { UserContext } from '../context/User';
 
@@ -102,7 +102,7 @@ const Summary = ({
           </DetailList>
         )}
         {shouldShowDowngradeWarning() && (
-          <Notice type="warning">
+          <Notice>
             <Text>{selectedPlan.summary.warning}</Text>
           </Notice>
         )}
