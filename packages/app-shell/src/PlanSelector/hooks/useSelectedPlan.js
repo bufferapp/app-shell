@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { freePlan } from '../../mocks/freePlan';
 
-const useSelectedPlan = (planOptions) => {
-  const defaultSelectedPlan = planOptions.find((plan) => plan.isCurrentPlan);
+const useSelectedPlan = (planOptions, isFreePlan) => {
+  const defaultSelectedPlan = isFreePlan
+    ? freePlan
+    : planOptions.find((plan) => plan.isCurrentPlan);
   const [selectedPlan, setSelectedPlan] = useState(defaultSelectedPlan);
 
   const updateSelectedPlan = (planString) => {
@@ -11,7 +14,9 @@ const useSelectedPlan = (planOptions) => {
         newSelectedPlanId === option.planId &&
         newSelectedPlanInterval === option.planInterval
     );
-    setSelectedPlan(newPlan);
+    if (!newPlan) {
+      setSelectedPlan(freePlan);
+    } else setSelectedPlan(newPlan);
   };
 
   return {

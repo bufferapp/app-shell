@@ -34,6 +34,10 @@ const PlanSelector = () => {
                 isActiveTrial={
                   user.currentOrganization.billing.subscription.trial?.isActive
                 }
+                isFreePlan={
+                  user.currentOrganization.billing.subscription.plan?.id ===
+                  'free'
+                }
                 openSuccess={(newData) => {
                   modal.openModal(MODALS.success, newData);
                 }}

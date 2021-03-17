@@ -11,7 +11,7 @@ const useButtonOptions = ({
     if (isActiveTrial) {
       return 'Confirm Upgrade';
     } else
-      return selectedPlan.isCurrentPlan
+      return selectedPlan?.isCurrentPlan
         ? 'Stay On My Current Plan'
         : 'Confirm Plan Change';
   };

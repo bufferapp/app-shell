@@ -12,7 +12,14 @@ describe('useSelectedPlan', () => {
     const { result } = renderHook(() => useSelectedPlan(planOptions));
     expect(result.current.selectedPlan.planId).toBe('team');
   });
+  it('should set the default as the free plan is the user is on the free plan', () => {
+    const isFreePlan = true;
 
+    const { result } = renderHook(() =>
+      useSelectedPlan(planOptions, isFreePlan)
+    );
+    expect(result.current.selectedPlan.planId).toBe('free');
+  });
   it('should update the selected plan', () => {
     const planString = 'individual_year';
 

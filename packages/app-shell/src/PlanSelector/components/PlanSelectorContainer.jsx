@@ -25,9 +25,10 @@ export const PlanSelectorContainer = ({
   hasPaymentDetails,
   isActiveTrial,
   openSuccess,
+  isFreePlan
 }) => {
-  const { monthlyBilling, setBillingInterval } = useInterval(planOptions);
-  const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions);
+  const { monthlyBilling, setBillingInterval } = useInterval(planOptions, isFreePlan);
+  const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions, isFreePlan);
   const {
     updateSubscriptionPlan: updatePlan,
     data,
@@ -41,7 +42,7 @@ export const PlanSelectorContainer = ({
     hasPaymentDetails,
     isActiveTrial,
   });
-  const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions);
+  const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions, isFreePlan);
 
   useEffect(() => {
     const newInterval = monthlyBilling ? 'month' : 'year';
