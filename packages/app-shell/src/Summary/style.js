@@ -96,18 +96,14 @@ export const Price = styled.div`
 
   sup {
     font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
   }
 
   sup:first-child {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 24px;
     line-height: 100%;
-  }
-
-  sup::last-child {
-    font-weight: 900;
-    font-size: 14px;
-    line-height: 140%;
   }
 
   p {
@@ -125,7 +121,7 @@ export const TotalPrice = styled(Price)`
 
   p {
     margin: 0 2px;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 30px;
   }
 `;
