@@ -1,5 +1,5 @@
 import { blue } from '@bufferapp/ui/style/colors';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const SummaryContainer = styled.div`
   width: 255px;
@@ -56,6 +56,15 @@ export const Detail = styled.li`
     display: inline-block;
     margin-right: 8px;
   }
+
+  ${(props) =>
+    props.changing &&
+    css`
+      p {
+        font-weight: 800;
+        color: ${blue};
+      }
+    `}
 `;
 
 export const DiscountReminder = styled.div`
