@@ -26,14 +26,37 @@ const Summary = ({
     : '';
 
   const getStatus = () => {
-    if (currentPlanString === selectedPlanString) {
+    const [currentPlanId, currentPlanInterval] = currentPlanString.split('_');
+    const [selectedPlanId, selectedPlanInterval] = selectedPlanString.split(
+      '_'
+    );
+    let planStatus;
+    let billingIntervalStatus;
+    if (currentPlanId === selectedPlanId) {
       const type = isActiveTrial ? 'trial' : 'plan';
-      return `Currently on the ${currentPlan.planName} ${type}`;
+      planStatus = `Currently on the ${currentPlan.planName} ${type}`;
     } else {
       const indefiniteArticle =
         selectedPlan?.planName == 'Individual' ? 'an' : 'a';
-      return `Changing to ${indefiniteArticle} ${selectedPlan?.planName} plan`;
+      planStatus = `Changing to ${indefiniteArticle} ${selectedPlan?.planName} plan`;
     }
+
+    if (currentPlanInterval !== selectedPlanInterval) {
+      billingIntervalStatus = `Changing to ${selectedPlanInterval}ly billing`;
+    }
+
+    return (
+      <>
+        <Detail>
+          <Text type="p">{planStatus}</Text>
+        </Detail>
+        {billingIntervalStatus && (
+          <Detail>
+            <Text type="p">{billingIntervalStatus}</Text>
+          </Detail>
+        )}
+      </>
+    );
   };
 
   const shouldShowDowngradeWarning = () => {
@@ -55,9 +78,7 @@ const Summary = ({
         <Text type="h2">Summary</Text>
         {fromPlanSelector ? (
           <DetailList>
-            <Detail>
-              <Text type="p">{getStatus()}</Text>
-            </Detail>
+            {getStatus()}
             {selectedPlan.summary.details.map((detail) => (
               <Detail key={detail}>
                 <Text type="p">{detail}</Text>
