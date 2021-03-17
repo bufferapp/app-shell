@@ -38,7 +38,7 @@ export const DetailList = styled.ul`
 
   p {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     display: inline-block;
     font-weight: 600;
   }
@@ -46,7 +46,8 @@ export const DetailList = styled.ul`
 
 export const Detail = styled.li`
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  margin-bottom: 8px;
 
   :before {
     content: '';
