@@ -26,6 +26,8 @@ const ScreenContainer = styled.div`
 
   h1 {
     max-width: 324px;
+    margin-top: 22px;
+    margin-bottom: 22px;
   }
 
   p {

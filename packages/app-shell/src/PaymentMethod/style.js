@@ -136,6 +136,11 @@ export const LeftSide = styled.div`
       padding: 0px;
     }
   }
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const RightSide = styled.div`
