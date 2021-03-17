@@ -37,7 +37,8 @@ const Summary = ({
     );
     let planStatus;
     let billingIntervalStatus;
-    let changing;
+    let planChanging;
+    let billingIntervalChanging;
     if (currentPlanId === selectedPlanId) {
       const type = isActiveTrial ? 'trial' : 'plan';
       planStatus = `Currently on the ${currentPlan.planName} ${type}`;
@@ -45,20 +46,21 @@ const Summary = ({
       const indefiniteArticle =
         selectedPlan?.planName == 'Individual' ? 'an' : 'a';
       planStatus = `Changing to ${indefiniteArticle} ${selectedPlan?.planName} plan`;
-      changing = true;
+      planChanging = true;
     }
 
     if (currentPlanInterval !== selectedPlanInterval) {
       billingIntervalStatus = `Changing to ${selectedPlanInterval}ly billing`;
+      billingIntervalChanging = true;
     }
 
     return (
       <>
-        <Detail changing={changing}>
+        <Detail changing={planChanging}>
           <Text type="p">{planStatus}</Text>
         </Detail>
         {billingIntervalStatus && (
-          <Detail>
+          <Detail changing={billingIntervalChanging}>
             <Text type="p">{billingIntervalStatus}</Text>
           </Detail>
         )}
