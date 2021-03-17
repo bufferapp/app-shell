@@ -40,6 +40,7 @@ export const DetailList = styled.ul`
     margin-top: 0;
     margin-bottom: 8px;
     display: inline-block;
+    font-weight: 600;
   }
 `;
 
@@ -55,6 +56,7 @@ export const Detail = styled.li`
     border: 2px solid ${blue};
     display: inline-block;
     margin-right: 8px;
+    box-sizing: content-box;
   }
 
   ${(props) =>

@@ -197,6 +197,7 @@ export const RadioButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: content-box;
 
   svg {
     fill: ${white};
