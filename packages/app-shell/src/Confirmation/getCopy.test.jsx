@@ -1,4 +1,4 @@
-import getCopy from './getCopy';
+import getCopy, { SUCCESS_CTA } from './getCopy';
 import { renderHook } from '@testing-library/react-hooks';
 
 describe('getCopy', () => {
@@ -11,7 +11,7 @@ describe('getCopy', () => {
     expect(result.current.description).toBe(
       'Your details have gone through successfully. Start using your Team plan features.'
     );
-    expect(result.current.buttonCopy).toBe("Great. Let's Go");
+    expect(result.current.buttonCopy).toBe(SUCCESS_CTA);
   });
   it('should return label, description and buttonCopy for a free plan change', () => {
     const planName = 'Free';
@@ -22,7 +22,7 @@ describe('getCopy', () => {
     expect(result.current.description).toBe(
       'Your change have gone through successfully. Start using your Free plan today.'
     );
-    expect(result.current.buttonCopy).toBe("Great. Let's Go");
+    expect(result.current.buttonCopy).toBe(SUCCESS_CTA);
   });
   it('should return label, description and buttonCopy for a billing info change', () => {
     const planName = null;
@@ -50,6 +50,6 @@ describe('getCopy', () => {
     expect(result.current.description).toBe(
       'For the next 14 days you get to experience Buffer to it’s full. Have fun!'
     );
-    expect(result.current.buttonCopy).toBe("Great. Let's Go");
+    expect(result.current.buttonCopy).toBe(SUCCESS_CTA);
   });
 });

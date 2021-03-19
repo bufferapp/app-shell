@@ -1,10 +1,11 @@
+export const SUCCESS_CTA = "Great, Let's Go!";
 const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
   if (startedTrial) {
     return {
       label: 'Congrats! You are now starting your trial',
       description:
         'For the next 14 days you get to experience Buffer to it’s full. Have fun!',
-      buttonCopy: "Great. Let's Go",
+      buttonCopy: SUCCESS_CTA,
     };
   }
 
@@ -13,13 +14,13 @@ const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
       label: 'Congrats! You are now on the Free plan',
       description:
         'Your change have gone through successfully. Start using your Free plan today.',
-      buttonCopy: "Great. Let's Go",
+      buttonCopy: SUCCESS_CTA,
     };
   } else if (planName) {
     return {
       label: `Congrats! Welcome to the ${planName} plan`,
       description: `Your details have gone through successfully. Start using your ${planName} plan features.`,
-      buttonCopy: "Great. Let's Go",
+      buttonCopy: SUCCESS_CTA,
     };
   }
 
