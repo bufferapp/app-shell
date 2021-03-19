@@ -21,7 +21,7 @@ describe('useButtonOptions', () => {
     expect(result.current.label).toBe('Stay On My Current Plan');
     expect(result.current.action).toBe(null);
   });
-  it("should return {label 'Confirm Plan Change', action: openPaymentMethod} if the user changes plan and doesn't have payment details", () => {
+  it("should return {label 'Go To Payment', action: openPaymentMethod} if the user changes plan and doesn't have payment details", () => {
     const selectedPlan = {
       planId: 'team',
       planInterval: 'year',
@@ -39,7 +39,7 @@ describe('useButtonOptions', () => {
       })
     );
 
-    expect(result.current.label).toBe('Confirm Plan Change');
+    expect(result.current.label).toBe('Go To Payment');
     expect(result.current.action).toBe(openPaymentMethod);
   });
   it("should return {label 'Confirm Plan Change', action: updatePlan} if the user changes plan and does have payment details", () => {
@@ -107,7 +107,7 @@ describe('useButtonOptions', () => {
     expect(result.current.label).toBe('Confirm Trial Plan');
     expect(result.current.action).toBe(updatePlan);
   });
-  it("should return {label 'Go to Payment', action: openPaymentMethod} is on a trial and doesn't have payment details", () => {
+  it("should return {label 'Go To Payment', action: openPaymentMethod} is on a trial and doesn't have payment details", () => {
     const selectedPlan = {
       planId: 'team',
       planInterval: 'year',
@@ -127,7 +127,7 @@ describe('useButtonOptions', () => {
       })
     );
 
-    expect(result.current.label).toBe('Go to Payment');
+    expect(result.current.label).toBe('Go To Payment');
     expect(result.current.action).toBe(openPaymentMethod);
   });
   it("should update the label and action when there's a new selectedPlan", () => {
@@ -141,8 +141,15 @@ describe('useButtonOptions', () => {
       isCurrentPlan: false,
     };
 
+    const hasPaymentDetails = true;
+
     const { result } = renderHook(() =>
-      useButtonOptions({ selectedPlan, updatePlan, openPaymentMethod })
+      useButtonOptions({
+        selectedPlan,
+        updatePlan,
+        openPaymentMethod,
+        hasPaymentDetails,
+      })
     );
 
     act(() => {

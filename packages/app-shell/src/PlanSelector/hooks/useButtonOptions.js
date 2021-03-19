@@ -9,11 +9,13 @@ const useButtonOptions = ({
 }) => {
   const getLabel = (selectedPlan) => {
     if (isActiveTrial) {
-      return hasPaymentDetails ? 'Confirm Trial Plan' : 'Go to Payment';
-    } else
-      return selectedPlan?.isCurrentPlan
-        ? 'Stay On My Current Plan'
-        : 'Confirm Plan Change';
+      return hasPaymentDetails ? 'Confirm Trial Plan' : 'Go To Payment';
+    } else if (selectedPlan?.isCurrentPlan) {
+      return 'Stay On My Current Plan';
+    } else if (hasPaymentDetails || selectedPlan.planId === 'free') {
+      return 'Confirm Plan Change';
+    }
+    return 'Go To Payment';
   };
 
   const [label, setLabel] = useState(getLabel(selectedPlan));
