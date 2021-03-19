@@ -56,7 +56,6 @@ const Summary = ({
       billingIntervalChanging = true;
     }
 
-
     return (
       <>
         <Detail changing={planChanging}>
@@ -67,21 +66,35 @@ const Summary = ({
             <Text type="p">{billingIntervalStatus}</Text>
           </Detail>
         )}
-        
       </>
     );
   };
 
-  const shouldShowDowngradeWarning = () => {
-    if (!fromPlanSelector) {
-      return false;
-    }
-    if (
-      (currentPlan.planId === 'team' && selectedPlan.planId === 'individual') ||
-      (currentPlan.planId === 'team' && selectedPlan.planId === 'free') ||
-      (currentPlan.planId === 'individual' && selectedPlan.planId === 'free')
-    ) {
-      return true;
+  const getPriceFooter = () => {
+    if (fromPlanSelector) {
+      if (selectedPlan.planId === 'free') {
+        return null;
+      }
+      return (
+        <Text type="label" color="grayDark">
+          {/* this ends up reading: # social channels x base price */}
+          {`${selectedPlan.channelsQuantity} social channel${
+            selectedPlan.channelsQuantity > 1 ? 's' : ''
+          } x `}
+          {
+            <BoldPrice>
+              {selectedPlan.currency}
+              {selectedPlan.summary.intervalBasePrice}
+            </BoldPrice>
+          }
+        </Text>
+      );
+    } else {
+      return (
+        <Text type="label" color="grayDark">
+          Includes tax
+        </Text>
+      );
     }
   };
 
@@ -111,11 +124,7 @@ const Summary = ({
             </Detail>
           </DetailList>
         )}
-        {shouldShowDowngradeWarning() && (
-          <Notice>
-            <Text>{selectedPlan.summary.warning}</Text>
-          </Notice>
-        )}
+
         <Bottom>
           <TotalPrice>
             <sup>{selectedPlan.currency}</sup>
@@ -129,33 +138,12 @@ const Summary = ({
                   : 'per year'
               }
             >
-              /{selectedPlan.summary.intervalUnit}
+              {selectedPlan.planId === 'free'
+                ? ''
+                : `/${selectedPlan.summary.intervalUnit}`}
             </sup>
           </TotalPrice>
-          {!selectedPlan.channelsQuantity ? (
-            ''
-          ) : (
-            <>
-              {fromPlanSelector ? (
-                <Text type="label" color="grayDark">
-                  {/* this ends up reading: # social channels x base price */}
-                  {`${selectedPlan.channelsQuantity} social channel${
-                    selectedPlan.channelsQuantity > 1 ? 's' : ''
-                  } x `}
-                  {
-                    <BoldPrice>
-                      {selectedPlan.currency}
-                      {selectedPlan.summary.intervalBasePrice}
-                    </BoldPrice>
-                  }
-                </Text>
-              ) : (
-                <Text type="label" color="grayDark">
-                  Includes tax
-                </Text>
-              )}
-            </>
-          )}
+          {!selectedPlan.channelsQuantity ? '' : <>{getPriceFooter()}</>}
           {selectedPlan.planInterval === 'year' && (
             <DiscountReminder>
               <Coupon />
