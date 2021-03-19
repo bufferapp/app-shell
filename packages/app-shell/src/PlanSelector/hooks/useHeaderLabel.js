@@ -4,7 +4,7 @@ const useHeaderLabel = (isActiveTrial, planOptions, isFreePlan) => {
   let headerLabel;
 
   if (isActiveTrial) {
-    return { headerLabel: 'Confirm Trial Plan' };
+    return { headerLabel: 'Confirm trial plan' };
   }
 
   const currentPlan = isFreePlan
@@ -15,7 +15,7 @@ const useHeaderLabel = (isActiveTrial, planOptions, isFreePlan) => {
   }
 
   return {
-    headerLabel: 'Change My Plan',
+    headerLabel: 'Change my plan',
   };
 };
 
