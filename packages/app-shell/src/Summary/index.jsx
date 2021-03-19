@@ -39,13 +39,15 @@ const Summary = ({
     let billingIntervalStatus;
     let planChanging;
     let billingIntervalChanging;
+    const type = isActiveTrial ? 'trial' : 'plan';
     if (currentPlanId === selectedPlanId) {
-      const type = isActiveTrial ? 'trial' : 'plan';
-      planStatus = `Currently on the ${currentPlan.planName} ${type}`;
+      const indefiniteArticle =
+        currentPlanId.planName == 'Individual' ? 'an' : 'a';
+      planStatus = `Currently on ${indefiniteArticle} ${currentPlan.planName} ${type}`;
     } else {
       const indefiniteArticle =
         selectedPlan?.planName == 'Individual' ? 'an' : 'a';
-      planStatus = `Changing to ${indefiniteArticle} ${selectedPlan?.planName} plan`;
+      planStatus = `Changing to ${indefiniteArticle} ${selectedPlan?.planName} ${type}`;
       planChanging = true;
     }
 
@@ -53,6 +55,7 @@ const Summary = ({
       billingIntervalStatus = `Changing to ${selectedPlanInterval}ly billing`;
       billingIntervalChanging = true;
     }
+
 
     return (
       <>
@@ -64,6 +67,7 @@ const Summary = ({
             <Text type="p">{billingIntervalStatus}</Text>
           </Detail>
         )}
+        
       </>
     );
   };

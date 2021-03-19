@@ -9,7 +9,7 @@ const useButtonOptions = ({
 }) => {
   const getLabel = (selectedPlan) => {
     if (isActiveTrial) {
-      return 'Confirm Upgrade';
+      return hasPaymentDetails ? 'Confirm Trial Plan' : 'Go to Payment';
     } else
       return selectedPlan?.isCurrentPlan
         ? 'Stay On My Current Plan'
@@ -28,7 +28,6 @@ const useButtonOptions = ({
     }
 
     if (selectedPlan.isCurrentPlan && !isActiveTrial) {
-      
       return null;
     }
 
