@@ -102,7 +102,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   background: ${white};
   cursor: pointer;
-  max-width: 300px;
+  max-width: 250px;
 
   p {
     font-weight: 500;
