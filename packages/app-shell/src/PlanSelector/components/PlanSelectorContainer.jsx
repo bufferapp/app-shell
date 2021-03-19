@@ -25,10 +25,16 @@ export const PlanSelectorContainer = ({
   hasPaymentDetails,
   isActiveTrial,
   openSuccess,
-  isFreePlan
+  isFreePlan,
 }) => {
-  const { monthlyBilling, setBillingInterval } = useInterval(planOptions, isFreePlan);
-  const { selectedPlan, updateSelectedPlan } = useSelectedPlan(planOptions, isFreePlan);
+  const { monthlyBilling, setBillingInterval } = useInterval(
+    planOptions,
+    isFreePlan
+  );
+  const { selectedPlan, updateSelectedPlan } = useSelectedPlan(
+    planOptions,
+    isFreePlan
+  );
   const {
     updateSubscriptionPlan: updatePlan,
     data,
@@ -42,7 +48,11 @@ export const PlanSelectorContainer = ({
     hasPaymentDetails,
     isActiveTrial,
   });
-  const { headerLabel } = useHeaderLabel(isActiveTrial, planOptions, isFreePlan);
+  const { headerLabel } = useHeaderLabel(
+    isActiveTrial,
+    planOptions,
+    isFreePlan
+  );
 
   useEffect(() => {
     const newInterval = monthlyBilling ? 'month' : 'year';
@@ -65,17 +75,19 @@ export const PlanSelectorContainer = ({
       <Left>
         <PlanSelectorHeader>
           <Text type="h2">{headerLabel}</Text>
-          <SwitchContainer>
-            <Switch
-              isOn={!monthlyBilling}
-              handleSwitch={() => setBillingInterval(!monthlyBilling)}
-              label="Monthly"
-              id="switch-off"
-            />
-            <p>
-              Yearly <span>20% discount</span>
-            </p>
-          </SwitchContainer>
+          {selectedPlan.planId !== 'free' && (
+            <SwitchContainer>
+              <Switch
+                isOn={!monthlyBilling}
+                handleSwitch={() => setBillingInterval(!monthlyBilling)}
+                label="Monthly"
+                id="switch-off"
+              />
+              <p>
+                Yearly <span>20% discount</span>
+              </p>
+            </SwitchContainer>
+          )}
         </PlanSelectorHeader>
         <SelectionScreen
           planOptions={planOptions}
@@ -85,7 +97,7 @@ export const PlanSelectorContainer = ({
         />
       </Left>
       <Right>
-        <Summary selectedPlan={selectedPlan} fromPlanSelector={true}/>
+        <Summary selectedPlan={selectedPlan} fromPlanSelector={true} />
         <ButtonContainer>
           <Button
             type="primary"
