@@ -58,7 +58,6 @@ export const QUERY_ACCOUNT = gql`
               priceNote
               summary {
                 details
-                warning
                 intervalBasePrice
                 intervalUnit
               }
