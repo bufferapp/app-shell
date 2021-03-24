@@ -36,6 +36,9 @@ export const QUERY_ACCOUNT = gql`
               trial {
                 isActive
                 remainingDays
+                isAwaitingUserAction
+                startDate
+                endDate
               }
               plan {
                 id
@@ -88,6 +91,9 @@ export const QUERY_ACCOUNT = gql`
               trial {
                 isActive
                 remainingDays
+                isAwaitingUserAction
+                startDate
+                endDate
               }
               plan {
                 id

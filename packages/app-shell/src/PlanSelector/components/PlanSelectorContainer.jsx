@@ -28,7 +28,7 @@ export const PlanSelectorContainer = ({
   user,
   openPaymentMethod,
   hasPaymentDetails,
-  isActiveTrial,
+  trialInfo,
   openSuccess,
   isFreePlan,
 }) => {
@@ -52,10 +52,11 @@ export const PlanSelectorContainer = ({
     updatePlan,
     openPaymentMethod,
     hasPaymentDetails,
-    isActiveTrial,
+    isActiveTrial: trialInfo?.isActive,
+    isAwaitingUserAction: trialInfo?.isAwaitingUserAction,
   });
   const { headerLabel } = useHeaderLabel(
-    isActiveTrial,
+    trialInfo?.isActive,
     planOptions,
     isFreePlan
   );

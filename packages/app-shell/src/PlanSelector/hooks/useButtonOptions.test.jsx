@@ -130,6 +130,30 @@ describe('useButtonOptions', () => {
     expect(result.current.label).toBe('Go To Payment');
     expect(result.current.action).toBe(openPaymentMethod);
   });
+  it("should return {label 'Confirm Free Plan'} if isAwaitingUserAction and is on free plan", () => {
+    const selectedPlan = {
+      planId: 'free',
+      planInterval: 'year',
+      isCurrentPlan: true,
+    };
+
+    const hasPaymentDetails = false;
+    const isActiveTrial = false;
+    const isAwaitingUserAction = true;
+
+    const { result } = renderHook(() =>
+      useButtonOptions({
+        selectedPlan,
+        updatePlan,
+        openPaymentMethod,
+        hasPaymentDetails,
+        isActiveTrial,
+        isAwaitingUserAction,
+      })
+    );
+
+    expect(result.current.label).toBe('Confirm Free Plan');
+  });
   it("should update the label and action when there's a new selectedPlan", () => {
     const selectedPlan = {
       planId: 'team',

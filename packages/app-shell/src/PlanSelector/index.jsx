@@ -31,8 +31,8 @@ const PlanSelector = () => {
                   user.currentOrganization.billing.paymentDetails
                     .hasPaymentDetails
                 }
-                isActiveTrial={
-                  user.currentOrganization.billing.subscription.trial?.isActive
+                trialInfo={
+                  user.currentOrganization.billing.subscription.trial
                 }
                 isFreePlan={
                   user.currentOrganization.billing.subscription.plan?.id ===
