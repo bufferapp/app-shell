@@ -69,7 +69,10 @@ const Card = ({
               summary.intervalUnit === 'mo' ? 'per month' : 'per year'
             }
           >
-            /{summary.intervalUnit === 'mo' ? 'month' : 'month billed yearly'}
+            {planId !== 'free' &&
+              `/${
+                summary.intervalUnit === 'mo' ? 'month' : 'month billed yearly'
+              }`}
           </sup>
         </Price>
         <Text htmlFor="foo" type="label" color="grayDark">

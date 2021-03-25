@@ -26,6 +26,7 @@ const Form = ({
   openPlans,
   openSuccess,
   plan,
+  isTrial
 }) => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false);
@@ -66,6 +67,19 @@ const Form = ({
     }
   }, [newPlan])
 
+  const getButtonLabel = () => {
+    if (processing) {
+      return 'Processing...';
+    }
+    if (isTrial) {
+      return 'Confirm Payment Details';
+    }
+    if (plan) {
+      return 'Confirm Payment';
+    }
+    return 'Update Payment Details';
+  };
+
   return (<StyledForm>
     <LeftSide>
       <Text type='h2'>Billing Details</Text>
@@ -90,7 +104,7 @@ const Form = ({
     <RightSide>
       {plan && <Summary selectedPlan={plan}/>}
       <ButtonContainer>
-        <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={processing ? "Processing..." : plan ? "Confirm Payment" : 'Update Payment Details'} fullWidth />
+        <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={getButtonLabel()} fullWidth />
       </ButtonContainer>
     </RightSide>
   </StyledForm>)

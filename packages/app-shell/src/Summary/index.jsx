@@ -24,6 +24,7 @@ const Summary = ({
   selectedPlan,
   fromPlanSelector,
   isFreePlan,
+  trialInfo,
   subscriptionEndDate,
 }) => {
   const currentPlan = isFreePlan
@@ -123,6 +124,11 @@ const Summary = ({
     subscriptionEndDate
   ).toLocaleDateString('en-US', dateOptions);
 
+  const formattedTrialEndDate = new Date(trialInfo.endDate).toLocaleDateString(
+    'en-US',
+    dateOptions
+  );
+
   const intervalInWords =
     selectedPlan.planInterval === 'month' ? '30 days' : 'year';
 
@@ -162,10 +168,17 @@ const Summary = ({
             </DetailList>
             <Separator />
             <SummaryNote>
-              <Text type="p">
-                First payment will take place <span>today</span> and then{' '}
-                <span>every {intervalInWords}</span>
-              </Text>
+              {trialInfo.isActive ? (
+                <Text type="p">
+                  You won't be charged until the end of your trial on{' '}
+                  <span>{formattedTrialEndDate}</span>
+                </Text>
+              ) : (
+                <Text type="p">
+                  First payment will take place <span>today</span> and then{' '}
+                  <span>every {intervalInWords}</span>
+                </Text>
+              )}
             </SummaryNote>
           </>
         )}
@@ -211,6 +224,7 @@ const SummaryProvider = ({ selectedPlan, fromPlanSelector }) => {
             isFreePlan={
               user.currentOrganization.billing.subscription.plan?.id === 'free'
             }
+            trialInfo={user.currentOrganization.billing.subscription.trial}
             subscriptionEndDate={
               user.currentOrganization.billing.subscription.periodEnd
             }

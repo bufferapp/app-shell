@@ -45,6 +45,10 @@ const PaymentMethod = () => {
                   }}
                   user={user}
                   plan={data ? data.plan : null}
+                  isTrial={
+                    user.currentOrganization.billing.subscription.trial
+                      ?.isActive
+                  }
                 />
               </StripeProvider>
             );
