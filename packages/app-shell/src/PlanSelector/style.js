@@ -44,6 +44,7 @@ export const PlanSelectorHeader = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 
   h2 {
@@ -56,16 +57,6 @@ export const SwitchContainer = styled.div`
   display: flex;
   align-items: center;
 
-  span {
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0px;
-    color: ${blue};
-  }
-
   p {
     color: #333333;
     font-family: Roboto, sans-serif;
@@ -74,6 +65,23 @@ export const SwitchContainer = styled.div`
     line-height: 16px;
     margin-left: 4px;
   }
+`;
+
+export const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const AbsoluteSavings = styled.span`
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0px;
+  color: ${blue};
+  min-width: 100px;
+  text-align: right;
 `;
 
 export const ButtonContainer = styled.div`

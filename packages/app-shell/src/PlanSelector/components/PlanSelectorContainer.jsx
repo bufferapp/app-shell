@@ -19,6 +19,8 @@ import {
   Right,
   Left,
   Container,
+  AbsoluteSavings,
+  HeaderLeft
 } from '../style';
 import useInterval from '../hooks/useInterval';
 import { ModalContext } from '../../context/Modal';
@@ -106,17 +108,18 @@ export const PlanSelectorContainer = ({
         <PlanSelectorHeader>
           <Text type="h2">{headerLabel}</Text>
           {selectedPlan.planId !== 'free' && (
-            <SwitchContainer>
-              <Switch
-                isOn={!monthlyBilling}
-                handleSwitch={() => setBillingInterval(!monthlyBilling)}
-                label="Monthly"
-                id="switch-off"
-              />
-              <p>
-                Yearly <span>20% discount</span>
-              </p>
-            </SwitchContainer>
+            <HeaderLeft>
+              <SwitchContainer>
+                <Switch
+                  isOn={!monthlyBilling}
+                  handleSwitch={() => setBillingInterval(!monthlyBilling)}
+                  label="Monthly"
+                  id="switch-off"
+                />
+                <p>Yearly</p>
+              </SwitchContainer>
+              <AbsoluteSavings>{selectedPlan.absoluteSavings}</AbsoluteSavings>
+            </HeaderLeft>
           )}
         </PlanSelectorHeader>
         <SelectionScreen

@@ -119,7 +119,7 @@ const Summary = ({
     month: 'long',
     day: 'numeric',
   };
-  const formattedSucriptionEndDate = new Date(
+  const formattedSubscriptionEndDate = new Date(
     subscriptionEndDate
   ).toLocaleDateString('en-US', dateOptions);
 
@@ -145,7 +145,7 @@ const Summary = ({
               {selectedPlan.planId === 'free' ? (
                 <Text type="p">
                   Changing to Free will occur at the end of your next billing
-                  cycle on <span>{formattedSucriptionEndDate}</span>
+                  cycle on <span>{formattedSubscriptionEndDate}</span>
                 </Text>
               ) : (
                 <Text type="p">Cancel your plan at anytime</Text>
