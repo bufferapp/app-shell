@@ -1,6 +1,9 @@
 import React from 'react';
 import Text from '@bufferapp/ui/Text';
 import Coupon from '@bufferapp/ui/Icon/Icons/Coupon';
+import Checkmark from '@bufferapp/ui/Icon/Icons/Checkmark';
+import ArrowDown from '@bufferapp/ui/Icon/Icons/ArrowDown';
+import ArrowUp from '@bufferapp/ui/Icon/Icons/ArrowUp';
 import {
   DiscountReminder,
   TotalPrice,
@@ -10,17 +13,18 @@ import {
   Body,
   SummaryContainer,
   BoldPrice,
-  Notice,
+  Separator,
+  SummaryNote,
 } from './style';
 import { UserContext } from '../context/User';
 import { freePlan } from '../mocks/freePlan';
 
 const Summary = ({
   planOptions,
-  isActiveTrial,
   selectedPlan,
   fromPlanSelector,
   isFreePlan,
+  subscriptionEndDate,
 }) => {
   const currentPlan = isFreePlan
     ? freePlan
@@ -30,42 +34,54 @@ const Summary = ({
     ? `${selectedPlan.planId}_${selectedPlan.planInterval}`
     : '';
 
+  const isDowngrading = (currentPlanId, selectedPlanId) => {
+    if (currentPlanId === 'individual') {
+      return selectedPlanId === 'free' ? true : false;
+    }
+    if (currentPlanId === 'team') {
+      return true;
+    }
+    if (currentPlanId === 'free') {
+      return false;
+    }
+  };
+
   const getStatus = () => {
     const [currentPlanId, currentPlanInterval] = currentPlanString.split('_');
     const [selectedPlanId, selectedPlanInterval] = selectedPlanString.split(
       '_'
     );
+
+    let downgrade;
     let planStatus;
     let billingIntervalStatus;
-    let planChanging;
-    let billingIntervalChanging;
-    const type = isActiveTrial ? 'trial' : 'plan';
     if (currentPlanId === selectedPlanId) {
-      const indefiniteArticle =
-        currentPlanId.planName == 'Individual' ? 'an' : 'a';
-      planStatus = `Currently on ${indefiniteArticle} ${currentPlan.planName} ${type}`;
+      planStatus = `Currently on ${currentPlan.planName}`;
     } else {
-      const indefiniteArticle =
-        selectedPlan?.planName == 'Individual' ? 'an' : 'a';
-      planStatus = `Changing to ${indefiniteArticle} ${selectedPlan?.planName} ${type}`;
-      planChanging = true;
+      downgrade = isDowngrading(currentPlanId, selectedPlanId);
+      planStatus = `${downgrade ? 'Downgrading' : 'Upgrading'} to ${
+        selectedPlan?.planName
+      }`;
     }
 
     if (currentPlanInterval !== selectedPlanInterval) {
       billingIntervalStatus = `Changing to ${selectedPlanInterval}ly billing`;
-      billingIntervalChanging = true;
     }
 
     return (
       <>
-        <Detail changing={planChanging}>
+        <Detail noBulletPoint>
+          {downgrade === undefined && <Checkmark />}
+          {downgrade === true && <ArrowDown />}
+          {downgrade === false && <ArrowUp />}
           <Text type="p">{planStatus}</Text>
         </Detail>
         {billingIntervalStatus && (
-          <Detail changing={billingIntervalChanging}>
+          <Detail>
             <Text type="p">{billingIntervalStatus}</Text>
           </Detail>
         )}
+        <Separator />
       </>
     );
   };
@@ -98,19 +114,37 @@ const Summary = ({
     }
   };
 
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedSucriptionEndDate = new Date(
+    subscriptionEndDate
+  ).toLocaleDateString('en-US', dateOptions);
+
   return (
     <SummaryContainer>
       <Body>
         <Text type="h2">Summary</Text>
         {fromPlanSelector ? (
-          <DetailList>
-            {getStatus()}
-            {selectedPlan.summary.details.map((detail) => (
-              <Detail key={detail}>
-                <Text type="p">{detail}</Text>
-              </Detail>
-            ))}
-          </DetailList>
+          <>
+            <DetailList>
+              {getStatus()}
+              {selectedPlan.summary.details.map((detail) => (
+                <Detail key={detail}>
+                  <Text type="p">{detail}</Text>
+                </Detail>
+              ))}
+            </DetailList>
+            <Separator />
+            <SummaryNote>
+              {selectedPlan.planId === 'free' ? (
+                <Text type="p">
+                  Changing to Free will occur at the end of your next billing
+                  cycle on <span>{formattedSucriptionEndDate}</span>
+                </Text>
+              ) : (
+                <Text type="p">Cancel your plan at anytime</Text>
+              )}
+            </SummaryNote>
+          </>
         ) : (
           <DetailList>
             <Detail>
@@ -163,11 +197,11 @@ const SummaryProvider = ({ selectedPlan, fromPlanSelector }) => {
         return (
           <Summary
             planOptions={user.currentOrganization.billing.changePlanOptions}
-            isActiveTrial={
-              user.currentOrganization.billing.subscription.trial?.isActive
-            }
             isFreePlan={
               user.currentOrganization.billing.subscription.plan?.id === 'free'
+            }
+            subscriptionEndDate={
+              user.currentOrganization.billing.subscription.periodEnd
             }
             selectedPlan={selectedPlan}
             fromPlanSelector={fromPlanSelector}

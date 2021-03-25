@@ -33,6 +33,7 @@ export const QUERY_ACCOUNT = gql`
           ... on OBBilling {
             canStartTrial
             subscription {
+              periodEnd
               trial {
                 isActive
                 remainingDays
@@ -88,6 +89,7 @@ export const QUERY_ACCOUNT = gql`
           ... on OBBilling {
             canStartTrial
             subscription {
+              periodEnd
               trial {
                 isActive
                 remainingDays

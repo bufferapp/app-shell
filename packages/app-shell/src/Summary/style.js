@@ -1,4 +1,4 @@
-import { blue } from '@bufferapp/ui/style/colors';
+import { blue, grayDark, grayDarker } from '@bufferapp/ui/style/colors';
 import styled, { css } from 'styled-components';
 
 export const SummaryContainer = styled.div`
@@ -49,23 +49,26 @@ export const Detail = styled.li`
   align-items: center;
   margin-bottom: 8px;
 
-  :before {
-    content: '';
-    height: 4px;
-    width: 4px;
-    border-radius: 50%;
-    border: 2px solid ${blue};
-    display: inline-block;
-    margin-right: 8px;
-    box-sizing: content-box;
+  svg {
+    fill: ${blue};
+    height: 14px;
+    width: 14px;
+    margin-right: 6px;
+    margin-left: -3px;
   }
 
   ${(props) =>
-    props.changing &&
+    !props.noBulletPoint &&
     css`
-      p {
-        font-weight: 800;
-        color: ${blue};
+      :before {
+        content: '';
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+        border: 2px solid ${blue};
+        display: inline-block;
+        margin-right: 8px;
+        box-sizing: content-box;
       }
     `}
 `;
@@ -135,18 +138,24 @@ export const BoldPrice = styled.span`
   letter-spacing: 0px;
 `;
 
-export const Notice = styled.div`
-  border: 2px solid rgb(240, 233, 195);
-  background: rgb(255, 252, 235) none repeat scroll 0% 0%;
-  border-radius: 4px;
-  padding: 16px 16px;
-  display: flex;
-  justify-content: flex-start;
-  position: relative;
+export const Separator = styled.span`
+  height: 2px;
+  width: 100%;
+  display: block;
+  background-color: #eeeeee;
+  margin-bottom: 12px;
+  margin-top: 12px;
+`;
+
+export const SummaryNote = styled.div`
+  p {
+    font-weight: 600;
+    color: ${grayDark};
+    margin: 0;
+  }
 
   span {
-    color: #625920;
-    font-size: 14px;
-    line-height: 1.25;
+    font-weight: 600;
+    color: ${grayDarker};
   }
 `;
