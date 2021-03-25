@@ -114,10 +114,17 @@ const Summary = ({
     }
   };
 
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
   const formattedSucriptionEndDate = new Date(
     subscriptionEndDate
   ).toLocaleDateString('en-US', dateOptions);
+
+  const intervalInWords =
+    selectedPlan.planInterval === 'month' ? '30 days' : 'year';
 
   return (
     <SummaryContainer>
@@ -146,17 +153,21 @@ const Summary = ({
             </SummaryNote>
           </>
         ) : (
-          <DetailList>
-            <Detail>
-              <Text type="p">Paying for {selectedPlan.planName} plan</Text>
-            </Detail>
-            <Detail>
-              <Text type="p">First payment today</Text>
-            </Detail>
-            <Detail>
-              <Text type="p">Cancel billing anytime</Text>
-            </Detail>
-          </DetailList>
+          <>
+            <DetailList>
+              <Detail noBulletPoint>
+                <Checkmark />
+                <Text type="p">Paying for {selectedPlan.planName}</Text>
+              </Detail>
+            </DetailList>
+            <Separator />
+            <SummaryNote>
+              <Text type="p">
+                First payment will take place <span>today</span> and then{' '}
+                <span>every {intervalInWords}</span>
+              </Text>
+            </SummaryNote>
+          </>
         )}
 
         <Bottom>
