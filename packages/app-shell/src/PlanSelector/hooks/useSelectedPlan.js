@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { freePlan } from '../../mocks/freePlan';
 
-const useSelectedPlan = (planOptions, isFreePlan) => {
-  const defaultSelectedPlan = isFreePlan
-    ? freePlan
+const useSelectedPlan = (planOptions, isUpgradeIntent) => {
+  const defaultSelectedPlan = isUpgradeIntent
+    ? planOptions[1]
     : planOptions.find((plan) => plan.isCurrentPlan);
   const [selectedPlan, setSelectedPlan] = useState(defaultSelectedPlan);
 

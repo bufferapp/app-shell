@@ -2,11 +2,11 @@ import useHeaderLabel from './useHeaderLabel';
 import { renderHook } from '@testing-library/react-hooks';
 
 describe('useHeaderLabel', () => {
-  it("should set the header label to 'Confirm trial plan' when a user is on a trial", () => {
+  it("should set the header label to 'Upgrade from Trial' when a user is on a trial", () => {
     const isActiveTrial = true;
     const { result } = renderHook(() => useHeaderLabel(isActiveTrial));
 
-    expect(result.current.headerLabel).toBe('Confirm trial plan');
+    expect(result.current.headerLabel).toBe('Upgrade from Trial');
   });
   it("should set the header label to 'Change my plan' when a user changes plan", () => {
     const isActiveTrial = false;

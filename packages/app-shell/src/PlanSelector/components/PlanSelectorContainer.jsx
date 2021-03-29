@@ -20,28 +20,40 @@ import {
   Left,
   Container,
   AbsoluteSavings,
-  HeaderLeft
+  HeaderLeft,
 } from '../style';
 import useInterval from '../hooks/useInterval';
 import { ModalContext } from '../../context/Modal';
 
 export const PlanSelectorContainer = ({
-  planOptions,
+  changePlanOptions,
   user,
   openPaymentMethod,
   hasPaymentDetails,
   trialInfo,
   openSuccess,
   isFreePlan,
+  isUpgradeIntent,
 }) => {
+  const filterPlanOptions = (changePlanOptions) => {
+    if (isUpgradeIntent) {
+      return changePlanOptions.filter((option) => option.planId !== 'free');
+    }
+    return changePlanOptions;
+  };
+
+  const [planOptions, setPlanOptions] = useState(
+    filterPlanOptions(changePlanOptions)
+  );
+
   const { data: modalData, modal } = useContext(ModalContext);
   const { monthlyBilling, setBillingInterval } = useInterval(
     planOptions,
-    isFreePlan
+    isUpgradeIntent
   );
   const { selectedPlan, updateSelectedPlan } = useSelectedPlan(
     planOptions,
-    isFreePlan
+    isUpgradeIntent
   );
   const {
     updateSubscriptionPlan: updatePlan,
@@ -130,12 +142,21 @@ export const PlanSelectorContainer = ({
         />
       </Left>
       <Right>
-        <Summary selectedPlan={selectedPlan} fromPlanSelector={true} />
+        <Summary
+          selectedPlan={selectedPlan}
+          fromPlanSelector={true}
+          isUpgradeIntent={isUpgradeIntent}
+        />
         <ButtonContainer>
           <Button
             type="primary"
             onClick={() =>
-              action({ plan: selectedPlan, cta: label, ctaView: modal })
+              action({
+                plan: selectedPlan,
+                cta: label,
+                ctaView: modal,
+                isUpgradeIntent,
+              })
             }
             label={processing ? 'Processing...' : label}
             fullWidth

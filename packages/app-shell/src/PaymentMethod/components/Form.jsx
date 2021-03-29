@@ -11,10 +11,10 @@ import {
   LeftSide,
   RightSide,
   Error,
-  ButtonContainer
-} from '../style'
-import Field from './Field'
-import Summary from '../../Summary'
+  ButtonContainer,
+} from '../style';
+import Field from './Field';
+import Summary from '../../Summary';
 
 import useSetupIntent from '../hooks/useSetupIntent';
 import useCreatePaymentMethod from '../hooks/useCreatePaymentMethod';
@@ -26,46 +26,44 @@ const Form = ({
   openPlans,
   openSuccess,
   plan,
-  isTrial
+  isTrial,
+  isUpgradeIntent,
 }) => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false);
 
-  const { setupIntent } = useSetupIntent(user)
-  const {
-    error,
-    paymentMethod,
-    processing,
-    submit,
-  } = useCreatePaymentMethod(setupIntent)
+  const { setupIntent } = useSetupIntent(user);
+  const { error, paymentMethod, processing, submit } = useCreatePaymentMethod(
+    setupIntent
+  );
 
-  const { data:userPaymentMethod } = useUpdateUserPaymentMethod({
+  const { data: userPaymentMethod } = useUpdateUserPaymentMethod({
     user,
     paymentMethod,
-  })
+  });
 
-  const { data:newPlan } = useUpdateSubscriptionPlan({
+  const { data: newPlan } = useUpdateSubscriptionPlan({
     user,
     paymentMethod,
     plan,
     hasPaymentMethod,
-  })
+  });
 
   useEffect(() => {
     if (paymentMethod) {
       if (!plan) {
-        openSuccess({onlyUpdatedCardDetails: true})
+        openSuccess({ onlyUpdatedCardDetails: true });
       } else {
-        setHasPaymentMethod(true)
+        setHasPaymentMethod(true);
       }
     }
-  }, [userPaymentMethod])
+  }, [userPaymentMethod]);
 
   useEffect(() => {
     if (newPlan) {
-      openSuccess({selectedPlan: plan})
+      openSuccess({ selectedPlan: plan });
     }
-  }, [newPlan])
+  }, [newPlan]);
 
   const getButtonLabel = () => {
     if (processing) {
@@ -80,34 +78,50 @@ const Form = ({
     return 'Update Payment Details';
   };
 
-  return (<StyledForm>
-    <LeftSide>
-      <Text type='h2'>Billing Details</Text>
-      <Error error={error && error.type !== 'validation_error' ? error : null} /><br/>
-      <Field label="Credit card number" enableSubmit={() => { setSubmitEnabled(true) }} />
-      <DoubleFields>
-        <Field label="Expiration date" />
-        <Field label="CVC" />
-      </DoubleFields>
-      <Footer>
-        <Button
-          type="text"
-          onClick={openPlans}
-          label="Go back to plans"
-          icon={<ArrowLeftIcon />}
+  return (
+    <StyledForm>
+      <LeftSide>
+        <Text type="h2">Billing Details</Text>
+        <Error
+          error={error && error.type !== 'validation_error' ? error : null}
         />
-        <Text type="p">
-          <LockIcon size="medium" /> Payments are securely provided by Stripe
-        </Text>
-      </Footer>
-    </LeftSide>
-    <RightSide>
-      {plan && <Summary selectedPlan={plan}/>}
-      <ButtonContainer>
-        <Button type="primary" onClick={submit} disabled={!submitEnabled || processing} label={getButtonLabel()} fullWidth />
-      </ButtonContainer>
-    </RightSide>
-  </StyledForm>)
-}
+        <br />
+        <Field
+          label="Credit card number"
+          enableSubmit={() => {
+            setSubmitEnabled(true);
+          }}
+        />
+        <DoubleFields>
+          <Field label="Expiration date" />
+          <Field label="CVC" />
+        </DoubleFields>
+        <Footer>
+          <Button
+            type="text"
+            onClick={() => openPlans(isUpgradeIntent)}
+            label="Go back to plans"
+            icon={<ArrowLeftIcon />}
+          />
+          <Text type="p">
+            <LockIcon size="medium" /> Payments are securely provided by Stripe
+          </Text>
+        </Footer>
+      </LeftSide>
+      <RightSide>
+        {plan && <Summary selectedPlan={plan} />}
+        <ButtonContainer>
+          <Button
+            type="primary"
+            onClick={submit}
+            disabled={!submitEnabled || processing}
+            label={getButtonLabel()}
+            fullWidth
+          />
+        </ButtonContainer>
+      </RightSide>
+    </StyledForm>
+  );
+};
 
-export default Form
+export default Form;

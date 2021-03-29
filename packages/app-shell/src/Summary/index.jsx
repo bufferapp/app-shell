@@ -23,13 +23,11 @@ const Summary = ({
   planOptions,
   selectedPlan,
   fromPlanSelector,
-  isFreePlan,
   trialInfo,
   subscriptionEndDate,
+  isUpgradeIntent,
 }) => {
-  const currentPlan = isFreePlan
-    ? freePlan
-    : planOptions.find((option) => option.isCurrentPlan);
+  const currentPlan = planOptions.find((option) => option.isCurrentPlan);
   const currentPlanString = `${currentPlan.planId}_${currentPlan.planInterval}`;
   const selectedPlanString = selectedPlan
     ? `${selectedPlan.planId}_${selectedPlan.planInterval}`
@@ -63,6 +61,11 @@ const Summary = ({
       planStatus = `${downgrade ? 'Downgrading' : 'Upgrading'} to ${
         selectedPlan?.planName
       }`;
+    }
+
+    if (isUpgradeIntent) {
+      planStatus = `Upgrade to ${selectedPlan?.planName}`;
+      downgrade = false;
     }
 
     if (currentPlanInterval !== selectedPlanInterval) {
@@ -124,7 +127,7 @@ const Summary = ({
     subscriptionEndDate
   ).toLocaleDateString('en-US', dateOptions);
 
-  const formattedTrialEndDate = new Date(trialInfo.endDate).toLocaleDateString(
+  const formattedTrialEndDate = new Date(trialInfo?.endDate).toLocaleDateString(
     'en-US',
     dateOptions
   );
@@ -214,22 +217,24 @@ const Summary = ({
   );
 };
 
-const SummaryProvider = ({ selectedPlan, fromPlanSelector }) => {
+const SummaryProvider = ({
+  selectedPlan,
+  fromPlanSelector,
+  isUpgradeIntent,
+}) => {
   return (
     <UserContext.Consumer>
       {(user) => {
         return (
           <Summary
             planOptions={user.currentOrganization.billing.changePlanOptions}
-            isFreePlan={
-              user.currentOrganization.billing.subscription.plan?.id === 'free'
-            }
             trialInfo={user.currentOrganization.billing.subscription?.trial}
             subscriptionEndDate={
               user.currentOrganization.billing.subscription.periodEnd
             }
             selectedPlan={selectedPlan}
             fromPlanSelector={fromPlanSelector}
+            isUpgradeIntent={isUpgradeIntent}
           />
         );
       }}

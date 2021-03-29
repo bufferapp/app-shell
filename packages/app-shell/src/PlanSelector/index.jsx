@@ -22,7 +22,9 @@ const PlanSelector = () => {
             }
             return (
               <PlanSelectorContainer
-                planOptions={user.currentOrganization.billing.changePlanOptions}
+                changePlanOptions={
+                  user.currentOrganization.billing.changePlanOptions
+                }
                 user={user}
                 openPaymentMethod={(data) => {
                   modal.openModal(MODALS.paymentMethod, data);
@@ -31,9 +33,7 @@ const PlanSelector = () => {
                   user.currentOrganization.billing.paymentDetails
                     .hasPaymentDetails
                 }
-                trialInfo={
-                  user.currentOrganization.billing.subscription?.trial
-                }
+                trialInfo={user.currentOrganization.billing.subscription?.trial}
                 isFreePlan={
                   user.currentOrganization.billing.subscription.plan?.id ===
                   'free'
@@ -41,6 +41,7 @@ const PlanSelector = () => {
                 openSuccess={(newData) => {
                   modal.openModal(MODALS.success, newData);
                 }}
+                isUpgradeIntent={modal.data.isUpgradeIntent}
               />
             );
           }}
