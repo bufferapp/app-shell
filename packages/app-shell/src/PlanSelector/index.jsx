@@ -32,7 +32,7 @@ const PlanSelector = () => {
                     .hasPaymentDetails
                 }
                 trialInfo={
-                  user.currentOrganization.billing.subscription.trial
+                  user.currentOrganization.billing.subscription?.trial
                 }
                 isFreePlan={
                   user.currentOrganization.billing.subscription.plan?.id ===

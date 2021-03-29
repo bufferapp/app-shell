@@ -224,7 +224,7 @@ const SummaryProvider = ({ selectedPlan, fromPlanSelector }) => {
             isFreePlan={
               user.currentOrganization.billing.subscription.plan?.id === 'free'
             }
-            trialInfo={user.currentOrganization.billing.subscription.trial}
+            trialInfo={user.currentOrganization.billing.subscription?.trial}
             subscriptionEndDate={
               user.currentOrganization.billing.subscription.periodEnd
             }
