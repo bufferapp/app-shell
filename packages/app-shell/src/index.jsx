@@ -79,7 +79,15 @@ const AppShell = ({
             {sidebar && <SidebarWrapper>{sidebar}</SidebarWrapper>}
             <ContentWrapper>{content}</ContentWrapper>
           </Wrapper>
-          <Modal {...modal} />
+          <Modal
+            {...modal}
+            isAwaitingUserAction={
+              data
+                ? data.account.currentOrganization.billing.subscription?.trial
+                    ?.isAwaitingUserAction
+                : null
+            }
+          />
         </ModalContext.Provider>
       </UserContext.Provider>
     </AppShellStyled>

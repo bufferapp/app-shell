@@ -21,8 +21,17 @@ const ModalContent = ({ modal }) => {
   }
 }
 
-const Modal = ({ modal, openModal }) => {
+const Modal = ({ modal, openModal, isAwaitingUserAction }) => {
   const [hasModal, setHasModal] = useState(!!modal);
+
+  useEffect(() => {
+    if (isAwaitingUserAction) {
+      openModal(MODALS.planSelector, {
+        cta: 'Render Modal',
+        isUpgradeIntent: false,
+      });
+    }
+  }, [isAwaitingUserAction]);
 
   useEffect(() => {
     setHasModal(!!modal);
