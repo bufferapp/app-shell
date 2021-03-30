@@ -171,7 +171,7 @@ const Summary = ({
             </DetailList>
             <Separator />
             <SummaryNote>
-              {trialInfo.isActive ? (
+              {trialInfo?.isActive ? (
                 <Text type="p">
                   You won't be charged until the end of your trial on{' '}
                   <span>{formattedTrialEndDate}</span>
