@@ -50,6 +50,7 @@ export const QUERY_ACCOUNT = gql`
               }
               plan {
                 id
+                name
               }
             }
             changePlanOptions {
@@ -107,6 +108,7 @@ export const QUERY_ACCOUNT = gql`
               }
               plan {
                 id
+                name
               }
             }
             changePlanOptions {
