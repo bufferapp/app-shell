@@ -11,7 +11,7 @@ function useOrgSwitcher() {
     )[0];
     const updatedData = {
       account: {
-        ...previousData.account,
+        ...previousData?.account,
         currentOrganization: organizationSelected,
       },
     };
