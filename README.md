@@ -28,6 +28,38 @@ There are no API or breaking changes.
 
 For now, refer to [the old documentation for `@bufferapp/ui/AppShell`](https://bufferapp.github.io/ui/#/ui/ui/appshell) until we migrate docs here.
 
+## Using the Plan Selector in your apps
+
+1. Hash in the URL:
+To use the plan selector or payment method modal with a hash in the URL, include #planSelector or #paymentMethod on the URL. This will open the desired modal on page load
+
+2. Using Modal context:
+To open the modal from a CTA, use the Modal Context and on click, execute the openModal function from the modal context, like this:
+```
+import { ModalContext, MODALS } from '@bufferapp/app-shell';
+
+const ModalTesting = () => (
+  <ModalContext.Consumer>
+    {modal => (
+      <button onClick={
+        () => {modal.openModal(MODALS.paymentMethod, { cta: 'Render Modal', isUpgradeIntent: false })}
+      }>Render Modal</button>
+    )}
+  </ModalContext.Consumer>
+)
+```
+#### Using CTAs for tracking
+In the method above, you'll notice that openModal accepts an object as a second paramater. The cta property is used for tracking. Use it when possible to allow for accurate tracking in Segment
+
+#### Using intentions
+Some places in our apps, the user's intent is to upgrade from Trial or from Free. For that, we only want to show 2 plan options (Individual and Team) instead of 3. For these CTAs, pass in `isUpgradeIntent : true` as part of the second paramater in openModal:
+```
+<button onClick={
+    () => {modal.openModal(MODALS.paymentMethod, { cta: 'Upgrade', isUpgradeIntent: false })}
+  }>
+  Render Modal
+</button>
+```
 
 ## Contributing
 
