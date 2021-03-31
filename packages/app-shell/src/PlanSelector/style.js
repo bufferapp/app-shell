@@ -80,7 +80,7 @@ export const AbsoluteSavings = styled.span`
   line-height: 16px;
   letter-spacing: 0px;
   color: ${blue};
-  min-width: 100px;
+  min-width: 112px;
   text-align: right;
 `;
 

@@ -12,7 +12,6 @@ import {
 } from '@bufferapp/ui/style/colors';
 import WarningIcon from '@bufferapp/ui/Icon/Icons/Warning';
 import Text from '@bufferapp/ui/Text';
-import { SummaryContainer } from '../Summary/style';
 
 export const StyledError = styled.p`
   margin: 0px;
