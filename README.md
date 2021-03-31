@@ -55,9 +55,9 @@ In the method above, you'll notice that openModal accepts an object as a second 
 Some places in our apps, the user's intent is to upgrade from Trial or from Free. For that, we only want to show 2 plan options (Individual and Team) instead of 3. For these CTAs, pass in `isUpgradeIntent : true` as part of the second paramater in openModal:
 ```
 <button onClick={
-    () => {modal.openModal(MODALS.paymentMethod, { cta: 'Upgrade', isUpgradeIntent: false })}
+    () => {modal.openModal(MODALS.paymentMethod, { cta: 'Upgrade', isUpgradeIntent: true })}
   }>
-  Render Modal
+  Upgrade
 </button>
 ```
 
