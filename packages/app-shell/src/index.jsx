@@ -59,17 +59,20 @@ const AppShell = ({
 
   const modal = useModal()
 
-  const isActiveTrial =
-    user.currentOrganization?.billing?.subscription?.trial?.isActive;
+  let isActiveTrial;
   let trialBannerString;
-  if (isActiveTrial) {
-    const planName =
-      user.currentOrganization?.billing?.subscription?.plan?.name;
-    const daysRemaining =
-      user.currentOrganization.billing.subscription.trial.remainingDays;
-    trialBannerString = `You are on the ${planName} trial with ${daysRemaining} ${
-      daysRemaining === 1 ? 'day' : 'days'
-    } left. Add a billing method to keep access after your trial expires.`;
+  if (user.currentOrganization?.isOneBufferOrganization) {
+    isActiveTrial =
+      user.currentOrganization?.billing?.subscription?.trial?.isActive;
+    if (isActiveTrial) {
+      const planName =
+        user.currentOrganization?.billing?.subscription?.plan?.name;
+      const daysRemaining =
+        user.currentOrganization?.billing?.subscription?.trial?.remainingDays;
+      trialBannerString = `You are on the ${planName} trial with ${daysRemaining} ${
+        daysRemaining === 1 ? 'day' : 'days'
+      } left. Add a billing method to keep access after your trial expires.`;
+    }
   }
   
 
