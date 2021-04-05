@@ -8,7 +8,7 @@ import Summary from '../../Summary';
 import useSelectedPlan from '../hooks/useSelectedPlan';
 import useButtonOptions from '../hooks/useButtonOptions';
 import useHeaderLabel from '../hooks/useHeaderLabel';
-import useUpdateSubscriptionPlan from '../hooks/useUpdateSubscriptionPlan';
+import useUpdateSubscriptionPlan from '../../hooks/useUpdateSubscriptionPlan';
 import {
   useTrackPlanSelectorViewed,
   useTrackPageViewed,
@@ -27,6 +27,7 @@ import {
 } from '../style';
 import useInterval from '../hooks/useInterval';
 import { ModalContext } from '../../context/Modal';
+import { Error } from '../../PaymentMethod/style';
 
 export const PlanSelectorContainer = ({
   changePlanOptions,
@@ -45,9 +46,9 @@ export const PlanSelectorContainer = ({
     return changePlanOptions;
   };
 
-  const [planOptions, setPlanOptions] = useState(
-    filterPlanOptions(changePlanOptions)
-  );
+  const planOptions = filterPlanOptions(changePlanOptions);
+
+  const [error, setError] = useState(null);
 
   const { data: modalData, modal } = useContext(ModalContext);
   const { monthlyBilling, setBillingInterval } = useInterval(
@@ -61,9 +62,13 @@ export const PlanSelectorContainer = ({
   const {
     updateSubscriptionPlan: updatePlan,
     data,
-    error,
+    error: subscriptionError,
     processing,
-  } = useUpdateSubscriptionPlan({ user, selectedPlan });
+  } = useUpdateSubscriptionPlan({
+    user,
+    plan: selectedPlan,
+    hasPaymentMethod: true,
+  });
   const { label, action, updateButton, ctaButton } = useButtonOptions({
     selectedPlan,
     updatePlan,
@@ -114,10 +119,14 @@ export const PlanSelectorContainer = ({
   }, [selectedPlan]);
 
   useEffect(() => {
-    if (data?.billingUpdateSubscriptionPlan) {
+    if (data?.billingUpdateSubscriptionPlan.success) {
       openSuccess({ selectedPlan });
     }
-  }, [data]);
+    if (subscriptionError) {
+      setError(subscriptionError);
+      console.log(subscriptionError);
+    }
+  }, [data, subscriptionError]);
 
   return (
     <Container>
@@ -145,6 +154,7 @@ export const PlanSelectorContainer = ({
             <Text>{selectedPlan.downgradedMessage}</Text>
           </DowngradeMessage>
         )}
+        {error && <Error error={error}>{error.message}</Error>}
         <SelectionScreen
           planOptions={planOptions}
           selectedPlan={selectedPlan}

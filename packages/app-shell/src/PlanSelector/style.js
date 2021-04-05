@@ -45,7 +45,6 @@ export const PlanSelectorHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 
   h2 {
     margin-top: 20px;
@@ -137,6 +136,7 @@ export const CardContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-bottom: 25px;
+  margin-top: 20px;
 
   div:last-child {
     margin-right: 0;

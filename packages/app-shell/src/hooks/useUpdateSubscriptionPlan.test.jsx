@@ -2,15 +2,27 @@ import React from 'react';
 import { MockedProvider } from '@apollo/react-testing';
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import { QUERY_ACCOUNT } from '../../graphql/account';
-import { UPDATE_SUBSCRIPTION_PLAN } from '../../graphql/billing';
+import { QUERY_ACCOUNT } from '../graphql/account';
+import { UPDATE_SUBSCRIPTION_PLAN } from '../graphql/billing';
 import useUpdateSubscriptionPlan from './useUpdateSubscriptionPlan';
 
 describe('useUpdateSubscriptionPlan', () => {
-  const mockMutation = jest.fn(() => {
+  const mockSuccessMutation = jest.fn(() => {
     return {
       data: {
-        billingUpdateSubscriptionPlan: 'billingUpdateSubscriptionPlan',
+        billingUpdateSubscriptionPlan: {
+          success: true,
+        },
+      },
+    };
+  });
+
+  const mockErrorMutation = jest.fn(() => {
+    return {
+      data: {
+        billingUpdateSubscriptionPlan: {
+          userFriendlyMessage: 'Whoops',
+        },
       },
     };
   });
@@ -20,7 +32,7 @@ describe('useUpdateSubscriptionPlan', () => {
       id: '123FooOrganization',
     },
   };
-  const selectedPlan = {
+  const plan = {
     planId: 'individual',
     planInterval: 'year',
   };
@@ -36,22 +48,22 @@ describe('useUpdateSubscriptionPlan', () => {
         query: UPDATE_SUBSCRIPTION_PLAN,
         variables: {
           organizationId: user.currentOrganization.id,
-          plan: selectedPlan.planId,
-          interval: selectedPlan.planInterval,
+          plan: plan.planId,
+          interval: plan.planInterval,
         },
       },
-      newData: mockMutation,
+      newData: mockSuccessMutation,
     },
     {
       request: {
         query: UPDATE_SUBSCRIPTION_PLAN,
         variables: {
           organizationId: userWithError.currentOrganization.id,
-          plan: selectedPlan.planId,
-          interval: selectedPlan.planInterval,
+          plan: plan.planId,
+          interval: plan.planInterval,
         },
       },
-      error: new Error('The horror! The horror!'),
+      newData: mockErrorMutation,
     },
     {
       request: {
@@ -86,46 +98,57 @@ describe('useUpdateSubscriptionPlan', () => {
   it('does not execute the mutation if missing user', async () => {
     const mocks = [];
     const { result } = testHook({
-      selectedPlan,
+      plan,
       user: null,
     });
-    await expect(mockMutation).not.toHaveBeenCalled();
+    await expect(mockSuccessMutation).not.toHaveBeenCalled();
   });
 
   it('does not execute the mutation if missing plan', async () => {
     const mocks = [];
     const { result } = testHook({
       user,
-      selectedPlan: null,
+      plan: null,
     });
-    await expect(mockMutation).not.toHaveBeenCalled();
+    await expect(mockSuccessMutation).not.toHaveBeenCalled();
   });
 
   it('run the mutation and return the setupIntent', async () => {
+    const hasPaymentMethod = true;
+    const alreadyProcessing = true;
     const { result, waitForNextUpdate } = testHook({
       user,
-      selectedPlan,
+      plan,
+      hasPaymentMethod,
+      alreadyProcessing,
     });
 
     act(() => {
       result.current.updateSubscriptionPlan();
     });
-    await expect(mockMutation).toHaveBeenCalled();
+    await expect(mockSuccessMutation).toHaveBeenCalled();
     await waitForNextUpdate();
     await expect(result.current.data).toEqual({
-      billingUpdateSubscriptionPlan: 'billingUpdateSubscriptionPlan',
+      billingUpdateSubscriptionPlan: { success: true },
     });
   });
 
-  it('run the mutation and return an error', async () => {
+  it('run the mutation and return a user friendly error', async () => {
+    const hasPaymentMethod = true;
+    const alreadyProcessing = true;
     const { result, waitForNextUpdate } = testHook({
       user: userWithError,
-      selectedPlan,
+      plan,
+      hasPaymentMethod,
+      alreadyProcessing,
     });
     act(() => {
       result.current.updateSubscriptionPlan();
     });
+    await expect(mockErrorMutation).toHaveBeenCalled();
     await waitForNextUpdate();
-    await expect(result.current.error).toEqual(mocks[1].error);
+    await expect(result.current.error).toEqual({
+      message: 'Whoops',
+    });
   });
 });

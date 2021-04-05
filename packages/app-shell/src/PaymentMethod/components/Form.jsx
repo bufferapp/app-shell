@@ -19,7 +19,7 @@ import Summary from '../../Summary';
 import useSetupIntent from '../hooks/useSetupIntent';
 import useCreatePaymentMethod from '../hooks/useCreatePaymentMethod';
 import useUpdateUserPaymentMethod from '../hooks/useUpdateUserPaymentMethod';
-import useUpdateSubscriptionPlan from '../hooks/useUpdateSubscriptionPlan';
+import useUpdateSubscriptionPlan from '../../hooks/useUpdateSubscriptionPlan';
 
 const Form = ({
   user,
@@ -31,22 +31,23 @@ const Form = ({
 }) => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false);
+  const [error, setError] = useState(null);
 
   const { setupIntent } = useSetupIntent(user);
-  const { error, paymentMethod, processing, submit } = useCreatePaymentMethod(
+  const { error:newPaymentMethodError, paymentMethod, processing, submit } = useCreatePaymentMethod(
     setupIntent
   );
 
-  const { data: userPaymentMethod } = useUpdateUserPaymentMethod({
+  const { data: userPaymentMethod, error:updatePaymentMethodError } = useUpdateUserPaymentMethod({
     user,
     paymentMethod,
   });
 
-  const { data: newPlan } = useUpdateSubscriptionPlan({
+  const { data: newPlan , error:subscriptionPlanError} = useUpdateSubscriptionPlan({
     user,
-    paymentMethod,
     plan,
     hasPaymentMethod,
+    alreadyProcessing: processing
   });
 
   useEffect(() => {
@@ -60,7 +61,19 @@ const Form = ({
   }, [userPaymentMethod]);
 
   useEffect(() => {
-    if (newPlan) {
+    if(updatePaymentMethodError ){
+      setError(updatePaymentMethodError)
+    }
+    if(newPaymentMethodError){
+      setError(newPaymentMethodError)
+    }
+    if(subscriptionPlanError){
+      setError(subscriptionPlanError)
+    }
+  }, [updatePaymentMethodError, newPaymentMethodError, subscriptionPlanError])
+
+  useEffect(() => {
+    if (newPlan?.billingUpdateSubscriptionPlan.success) {
       openSuccess({ selectedPlan: plan });
     }
   }, [newPlan]);

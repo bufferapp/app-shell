@@ -29,10 +29,14 @@ export const UPDATE_SUBSCRIPTION_PLAN = gql`
     $interval: BillingInterval
   ) {
     billingUpdateSubscriptionPlan(
-      organizationId:$organizationId,
-      plan:$plan,
-      interval:$interval
+      organizationId: $organizationId,
+      plan: $plan,
+      interval: $interval
     )
+    {
+      ... on BillingResponse { success }
+      ... on BillingError { userFriendlyMessage }
+    }
   }
 `;
 
