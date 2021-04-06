@@ -64,6 +64,7 @@ describe('useUpdateSubscriptionPlan', () => {
         },
       },
       newData: mockErrorMutation,
+      error: new Error('Whoops'),
     },
     {
       request: {
@@ -147,8 +148,6 @@ describe('useUpdateSubscriptionPlan', () => {
     });
     await expect(mockErrorMutation).toHaveBeenCalled();
     await waitForNextUpdate();
-    await expect(result.current.error).toEqual({
-      message: 'Whoops',
-    });
+    await expect(result.current.error).toEqual(mocks[1].error);
   });
 });
