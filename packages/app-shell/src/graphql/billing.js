@@ -7,6 +7,10 @@ export const CREATE_SETUP_INTENT = gql`
     billingCreateSetupIntent(
       organizationId: $organizationId
     )
+    {
+      ... on BillingCreateSetupIntentResponse { success, clientSecret }
+      ... on BillingError { userFriendlyMessage }
+    }
   }
 `;
 
@@ -19,6 +23,10 @@ export const UPDATE_PAYMENT_METHOD = gql`
       organizationId:$organizationId,
       paymentMethodId:$paymentMethodId
     )
+    {
+      ... on BillingResponse { success }
+      ... on BillingError { userFriendlyMessage }
+    }
   }
 `;
 
@@ -51,5 +59,9 @@ export const START_TRIAL = gql`
       plan:$plan, 
       interval:$interval
     )
+    {
+      ... on BillingResponse { success }
+      ... on BillingError { userFriendlyMessage }
+    }
   }
 `

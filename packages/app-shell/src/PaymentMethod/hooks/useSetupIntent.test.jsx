@@ -5,12 +5,17 @@ import { renderHook } from '@testing-library/react-hooks'
 import { CREATE_SETUP_INTENT } from '../../graphql/billing'
 import useSetupIntent from './useSetupIntent'
 
+
+
 describe('useSetupIntent', () => {
   const mockMutation = jest.fn(() => ({
     data: {
-      billingCreateSetupIntent: 'fooSetupIntent',
-    }
-  }))
+      billingCreateSetupIntent: {
+        success: true,
+        clientSecret: 'fooSetupIntent',
+      },
+    },
+  }));
   const user = {
     currentOrganization: {
       id: '123FooOrganization',
@@ -76,6 +81,7 @@ describe('useSetupIntent', () => {
     const { result, waitForNextUpdate } = testHook(user)
     await expect(mockMutation).toHaveBeenCalled();
     await waitForNextUpdate();
+    console.log(result.current)
     await expect(result.current.setupIntent).toEqual('fooSetupIntent');
   })
 

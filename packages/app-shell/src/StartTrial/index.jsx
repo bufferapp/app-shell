@@ -17,6 +17,10 @@ import { Holder, Content, Ctas } from './style';
 const StartTrial = ({ user, openModal }) => {
   const [suggestedPlan, setSuggestedPlan] = useState(null);
   const [processing, setProcessing] = useState(false);
+<<<<<<< HEAD
+=======
+  const [error, setError] = useState(null);
+>>>>>>> 61d335b... update all billing methods to return a typed error
   useEffect(() => {
     if (user) {
       let plan = user.currentOrganization.billing.changePlanOptions.find(
@@ -32,6 +36,7 @@ const StartTrial = ({ user, openModal }) => {
     }
   }, [user]);
 
+<<<<<<< HEAD
   const [startTrial, { data: trial, error }] = useMutation(START_TRIAL, {
     refetchQueries: [{ query: QUERY_ACCOUNT }],
   });
@@ -41,6 +46,24 @@ const StartTrial = ({ user, openModal }) => {
       openModal(MODALS.success, { startedTrial: true });
     }
   }, [trial]);
+=======
+  const [startTrial, { data: trial, error: mutationError }] = useMutation(
+    START_TRIAL,
+    {
+      refetchQueries: [{ query: QUERY_ACCOUNT }],
+    }
+  );
+
+  useEffect(() => {
+    if (trial.billingStartTrial.success) {
+      openModal(MODALS.success, { startedTrial: true });
+    } else if (mutationError) {
+      setError(mutationError);
+    } else if (trial.billingStartTrial.userFriendlyMessage) {
+      setError(trial.billingStartTrial.userFriendlyMessage);
+    }
+  }, [trial, mutationError]);
+>>>>>>> 61d335b... update all billing methods to return a typed error
 
   return (
     <Holder>
@@ -89,10 +112,14 @@ const StartTrial = ({ user, openModal }) => {
           <Button
             type="secondary"
             onClick={() => {
+<<<<<<< HEAD
               openModal(MODALS.planSelector, {
                 cta: 'planSelection',
                 ctaButton: 'checkOutPaidPlans',
               });
+=======
+              openModal(MODALS.planSelector);
+>>>>>>> 61d335b... update all billing methods to return a typed error
             }}
             label="Check Out Paid Plans"
           />
@@ -101,7 +128,11 @@ const StartTrial = ({ user, openModal }) => {
           error={
             error
               ? {
+<<<<<<< HEAD
                   message: "We can't start your trial, please contact support.",
+=======
+                  message: error.message,
+>>>>>>> 61d335b... update all billing methods to return a typed error
                 }
               : null
           }

@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect , useState} from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_PAYMENT_METHOD } from '../../graphql/billing';
-import { QUERY_ACCOUNT } from '../../graphql/account'
+import { QUERY_ACCOUNT } from '../../graphql/account';
 
 function useUpdateUserPaymentMethod({ user, paymentMethod }) {
-  const [updatePaymentMethod, { data, error }] = useMutation(
+  const [updatePaymentMethod, { data, error: mutationError }] = useMutation(
     UPDATE_PAYMENT_METHOD,
     {
       refetchQueries: [{ query: QUERY_ACCOUNT }],
     }
   );
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (paymentMethod && user) {
@@ -17,17 +18,30 @@ function useUpdateUserPaymentMethod({ user, paymentMethod }) {
         variables: {
           organizationId: user.currentOrganization.id,
           paymentMethodId: paymentMethod.id,
-        }
+        },
       }).catch((e) => {
-        console.error(e)
-      })
+        console.error(e);
+      });
     }
-  }, [paymentMethod])
+  }, [paymentMethod]);
+
+  useEffect(() => {
+    if (mutationError) {
+      setError(mutationError);
+    } else if (data?.billingUpdateCustomerPaymentMethod.userFriendlyMessage) {
+      setError({
+        message: data.billingUpdateCustomerPaymentMethod.userFriendlyMessage,
+      });
+    }
+  }, [mutationError, data]);
 
   return {
-    data,
+    userPaymentMethod:
+      data && data?.billingUpdateCustomerPaymentMethod.success
+        ? data.billingUpdateCustomerPaymentMethod.success
+        : null,
     error,
-  }
+  };
 }
 
-export default useUpdateUserPaymentMethod
+export default useUpdateUserPaymentMethod;

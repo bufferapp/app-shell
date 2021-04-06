@@ -1,9 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useState} from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_SETUP_INTENT } from '../../graphql/billing'
+import { CREATE_SETUP_INTENT } from '../../graphql/billing';
 
 function useSetupIntent(user) {
-  const [createSetupIntent, { data, error }] = useMutation(CREATE_SETUP_INTENT)
+  const [createSetupIntent, { data, error: mutationError }] = useMutation(
+    CREATE_SETUP_INTENT
+  );
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -13,19 +16,31 @@ function useSetupIntent(user) {
     if (user.currentOrganization && user.currentOrganization.id) {
       createSetupIntent({
         variables: {
-          organizationId: user.currentOrganization.id
-        }
+          organizationId: user.currentOrganization.id,
+        },
       }).catch((e) => {
-        console.error(e)
-      })
+        console.error(e);
+      });
     }
-  }, [user])
+  }, [user]);
+
+  useEffect(() => {
+    if (mutationError) {
+      setError(mutationError);
+    } else if (data?.billingCreateSetupIntent.userFriendlyMessage) {
+      setError({
+        message: data.billingCreateSetupIntent.userFriendlyMessage,
+      });
+    }
+  }, [mutationError, data]);
 
   return {
-    setupIntent: data ? data.billingCreateSetupIntent : null,
-    error
-  }
+    setupIntent:
+      data && data?.billingCreateSetupIntent.success
+        ? data.billingCreateSetupIntent.clientSecret
+        : null,
+    error,
+  };
 }
 
-export default useSetupIntent
-
+export default useSetupIntent;

@@ -38,7 +38,7 @@ const Form = ({
     setupIntent
   );
 
-  const { data: userPaymentMethod, error:updatePaymentMethodError } = useUpdateUserPaymentMethod({
+  const { userPaymentMethod, error:updatePaymentMethodError } = useUpdateUserPaymentMethod({
     user,
     paymentMethod,
   });

@@ -10,9 +10,9 @@ describe('useUpdateUserPaymentMethod', () => {
 
   const mockMutation = jest.fn(() => ({
     data: {
-      updatePaymentMethod: 'updatePaymentMethod',
-    }
-  }))
+      billingUpdateCustomerPaymentMethod: { success: 'updatePaymentMethod' },
+    },
+  }));
 
   const user = {
     currentOrganization: {
@@ -103,13 +103,14 @@ describe('useUpdateUserPaymentMethod', () => {
     const { result, waitForNextUpdate } = testHook({
       user,
       paymentMethod,
-    })
+    });
     await expect(mockMutation).toHaveBeenCalled();
     await waitForNextUpdate();
-    await expect(result.current.data).toEqual({
-      updatePaymentMethod: 'updatePaymentMethod',
-    });
-  })
+    console.log(result.current);
+    await expect(result.current.userPaymentMethod).toEqual(
+      'updatePaymentMethod'
+    );
+  });
 
   it('run the mutation and return an error', async () => {
     const { result, waitForNextUpdate } = testHook({
