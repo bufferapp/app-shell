@@ -35,30 +35,37 @@ const AppShell = ({
   apolloClient,
   channels,
 }) => {
-  const graphqlConfig = apolloClient ? {
-    client: apolloClient
-  } : {}
-  const { data, loading, error } = useQuery(QUERY_ACCOUNT, graphqlConfig)
+  const graphqlConfig = apolloClient
+    ? {
+        client: apolloClient,
+      }
+    : {};
+  const { data, loading, error } = useQuery(QUERY_ACCOUNT, graphqlConfig);
 
-  const user = loading || !data ? {
-    name: '...',
-    email: '...',
-    products: [],
-    featureFlips: [],
-    organizations: [],
-    currentOrganization: {},
-    isImpersonation: false,
-    loading: true,
-  } : {
-    ...data.account,
-  };
+  const user =
+    loading || !data
+      ? {
+          name: '...',
+          email: '...',
+          products: [],
+          featureFlips: [],
+          organizations: [],
+          currentOrganization: {},
+          isImpersonation: false,
+          loading: true,
+        }
+      : {
+          ...data.account,
+        };
 
   const networkErrors = error?.networkError?.result?.errors;
-  if (networkErrors?.some(err => err.extensions?.code === 'UNAUTHENTICATED')) {
+  if (
+    networkErrors?.some((err) => err.extensions?.code === 'UNAUTHENTICATED')
+  ) {
     window.location.assign(getLogoutUrl(window.location.href));
   }
 
-  const modal = useModal()
+  const modal = useModal();
 
   let isActiveTrial;
   let trialBannerString;
@@ -80,8 +87,6 @@ const AppShell = ({
       } left. Add a billing method to keep access after your trial expires.`;
     }
   }
-  
-
 
   return (
     <AppShellStyled>
@@ -216,6 +221,6 @@ export default AppShell;
 
 export { UserContext, useUser } from './context/User';
 export { ModalContext } from './context/Modal';
-
+export { default as useStartTrial } from './hooks/useStartTrial';
 export { default as useOrgSwitcher } from './hooks/useOrgSwitcher';
 export { MODALS } from './hooks/useModal';

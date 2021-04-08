@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client';
 
 import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
 import Text from '@bufferapp/ui/Text';
@@ -9,15 +8,12 @@ import { Error } from '../PaymentMethod/style';
 import { MODALS } from '../hooks/useModal';
 import { UserContext } from '../context/User';
 import { ModalContext } from '../context/Modal';
-import { START_TRIAL } from '../graphql/billing';
-import { QUERY_ACCOUNT } from '../graphql/account';
+import useStartTrial from '../hooks/useStartTrial';
 
 import { Holder, Content, Ctas } from './style';
 
 const StartTrial = ({ user, openModal }) => {
   const [suggestedPlan, setSuggestedPlan] = useState(null);
-  const [processing, setProcessing] = useState(false);
-  const [error, setError] = useState(null);
   useEffect(() => {
     if (user) {
       let plan = user.currentOrganization.billing.changePlanOptions.find(
@@ -33,22 +29,16 @@ const StartTrial = ({ user, openModal }) => {
     }
   }, [user]);
 
-  const [startTrial, { data: trial, error: mutationError }] = useMutation(
-    START_TRIAL,
-    {
-      refetchQueries: [{ query: QUERY_ACCOUNT }],
-    }
-  );
+  const { startTrial, trial, error, processing } = useStartTrial({
+    user,
+    plan: suggestedPlan,
+  });
 
   useEffect(() => {
-    if (trial?.billingStartTrial.success) {
+    if (trial && trial.billingStartTrial.success) {
       openModal(MODALS.success, { startedTrial: true });
-    } else if (mutationError) {
-      setError(mutationError);
-    } else if (trial?.billingStartTrial.userFriendlyMessage) {
-      setError(trial?.billingStartTrial.userFriendlyMessage);
     }
-  }, [trial, mutationError]);
+  }, [trial]);
 
   return (
     <Holder>
@@ -80,17 +70,7 @@ const StartTrial = ({ user, openModal }) => {
             type="primary"
             disabled={!suggestedPlan || processing}
             onClick={() => {
-              setProcessing(true);
-              startTrial({
-                variables: {
-                  organizationId: user.currentOrganization.id,
-                  plan: suggestedPlan.planId,
-                  interval: suggestedPlan.planInterval,
-                },
-              }).catch((e) => {
-                setProcessing(false);
-                console.error(e);
-              });
+              startTrial();
             }}
             label={
               processing ? 'Processing ...' : 'Start Free 14-day Free Trial'

@@ -106,7 +106,6 @@ describe('useUpdateUserPaymentMethod', () => {
     });
     await expect(mockMutation).toHaveBeenCalled();
     await waitForNextUpdate();
-    console.log(result.current);
     await expect(result.current.userPaymentMethod).toEqual(
       'updatePaymentMethod'
     );
