@@ -124,6 +124,7 @@ export const PlanSelectorContainer = ({
     }
     if (subscriptionError) {
       setError(subscriptionError);
+      console.log(subscriptionError);
     }
   }, [data, subscriptionError]);
 

@@ -81,6 +81,7 @@ describe('useSetupIntent', () => {
     const { result, waitForNextUpdate } = testHook(user)
     await expect(mockMutation).toHaveBeenCalled();
     await waitForNextUpdate();
+    console.log(result.current)
     await expect(result.current.setupIntent).toEqual('fooSetupIntent');
   })
 
