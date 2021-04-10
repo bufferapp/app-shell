@@ -92,7 +92,9 @@ const StartTrial = ({ user, openModal }) => {
                 console.error(e);
               });
             }}
-            label={processing ? 'Processing ...' : 'Start Free 14-day Trial'}
+            label={
+              processing ? 'Processing ...' : 'Start Free 14-day Free Trial'
+            }
           />
           <Button
             type="secondary"

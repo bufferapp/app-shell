@@ -3,8 +3,7 @@ const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
   if (startedTrial) {
     return {
       label: 'Congrats! You are now starting your trial',
-      description:
-        'For the next 14 days you get to experience Buffer to it’s full. Have fun!',
+      description: 'You can now experience all Buffer has to offer. Have fun!',
       buttonCopy: SUCCESS_CTA,
     };
   }
