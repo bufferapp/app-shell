@@ -62,7 +62,12 @@ const AppShell = ({
 
   let isActiveTrial;
   let trialBannerString;
-  if (user.currentOrganization?.isOneBufferOrganization) {
+  //in human: is OB, is admin, doesn't have payment details
+  if (
+    user.currentOrganization?.isOneBufferOrganization &&
+    user.currentOrganization?.canEdit &&
+    !user.currentOrganization?.billing.paymentDetails.hasPaymentDetails
+  ) {
     isActiveTrial =
       user.currentOrganization?.billing?.subscription?.trial?.isActive;
     if (isActiveTrial) {
