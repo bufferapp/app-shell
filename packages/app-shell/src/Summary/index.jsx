@@ -96,7 +96,7 @@ const Summary = ({
         return null;
       }
       return (
-        <Text type="label" color="grayDark">
+        <Text type="label" color="grayDarker">
           {/* this ends up reading: # social channels x base price */}
           {`${selectedPlan.channelsQuantity} social channel${
             selectedPlan.channelsQuantity > 1 ? 's' : ''
@@ -111,7 +111,7 @@ const Summary = ({
       );
     } else {
       return (
-        <Text type="label" color="grayDark">
+        <Text type="label" color="grayDarker">
           Includes tax
         </Text>
       );
@@ -151,7 +151,7 @@ const Summary = ({
             </DetailList>
             <Separator />
             <SummaryNote>
-              {selectedPlan.planId === 'free' ? (
+              {selectedPlan.planId === 'free' && subscriptionEndDate ? (
                 <Text type="p">
                   Changing to Free will occur at the end of your next billing
                   cycle on <span>{formattedSubscriptionEndDate}</span>

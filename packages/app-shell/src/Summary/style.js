@@ -2,7 +2,7 @@ import { blue, grayDark, grayDarker } from '@bufferapp/ui/style/colors';
 import styled, { css } from 'styled-components';
 
 export const SummaryContainer = styled.div`
-  width: 255px;
+  width: 285px;
   background-color: #fcfcfc;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -27,6 +27,7 @@ export const Bottom = styled.div`
   label {
     display: inline-block;
     margin-bottom: 8px;
+    font-weight: 700;
   }
 `;
 
@@ -143,8 +144,8 @@ export const Separator = styled.span`
   width: 100%;
   display: block;
   background-color: #eeeeee;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: 16px;
+  margin-top: 16px;
 `;
 
 export const SummaryNote = styled.div`

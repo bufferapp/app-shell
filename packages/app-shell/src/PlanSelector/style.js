@@ -1,9 +1,16 @@
-import { grayLighter, blue, grayDark, white } from '@bufferapp/ui/style/colors';
+import {
+  grayLighter,
+  blue,
+  grayDark,
+  white,
+  grayLight,
+  blueLighter,
+} from '@bufferapp/ui/style/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  height: 580px;
+  height: 610px;
   align-items: center;
   border-radius: 8px;
   box-sizing: border-box;
@@ -99,9 +106,13 @@ export const ButtonContainer = styled.div`
 
 export const Wrapper = styled.div`
   border: ${(props) =>
-    props.selectedPlan ? `2px solid ${blue}` : '2px solid rgb(224, 224, 224)'};
+    props.selectedPlan ? 'none' : `2px solid ${grayLight}`};
+  box-shadow: ${(props) =>
+    props.selectedPlan
+      ? `0px 0px 0px 1.5px #2c4bff, 0px 4px 8px rgba(0, 0, 0, 0.04)`
+      : `0px 4px 8px rgba(0, 0, 0, 0.04)`};
   border-radius: 3px;
-  height: 420px;
+  height: 450px;
   position: relative;
   padding: 21px;
   flex: 1 1 0px;
@@ -109,24 +120,25 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   background: ${white};
   cursor: pointer;
-  max-width: 250px;
+  width: 285px;
 
   p {
     font-weight: 500;
     margin: 0;
+    max-width: 200px;
   }
 
   h3 {
     margin: 0;
   }
 
-  &:focus {
-    border: 2px solid ${blue};
-    outline: none;
-  }
-
+  &:focus,
   &:hover {
-    border: 2px solid ${blue};
+    border: none;
+    box-shadow: ${(props) =>
+      props.selectedPlan
+        ? `0px 0px 0px 1.5px #2c4bff, 0px 4px 8px rgba(0, 0, 0, 0.04)`
+        : `0px 0px 0px 1.5px ${blueLighter}, 0px 4px 8px rgba(0, 0, 0, 0.04)`};
     outline: none;
   }
 `;
@@ -153,6 +165,10 @@ export const CardHeader = styled.div`
 export const CardFooter = styled.div`
   position: absolute;
   bottom: 21px;
+
+  label {
+    font-weight: 700;
+  }
 `;
 
 export const CurrentLabel = styled.label`
@@ -225,7 +241,7 @@ export const Price = styled.div`
 
   sup:first-child {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 100%;
   }
 
@@ -240,6 +256,7 @@ export const Price = styled.div`
     margin-left: 2px;
     margin-right: 2px;
     font-weight: 600;
+    font-size: 26px;
   }
 `;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Text from '@bufferapp/ui/Text';
 import CheckmarkIcon from '@bufferapp/ui/Icon/Icons/Checkmark';
+import AddIcon from '@bufferapp/ui/Icon/Icons/Add';
 import {
   Wrapper,
   CardContainer,
@@ -13,6 +14,9 @@ import {
   BenefitList,
   Benefit,
 } from '../style';
+
+const ENTER_KEY = 13;
+const SPACE_KEY = 32;
 
 const Card = ({
   planId,
@@ -35,6 +39,10 @@ const Card = ({
       onClick={(e) => {
         updateSelectedPlan(e.currentTarget.id);
       }}
+      onKeyDown={(e) => {
+        if (e.keyCode === ENTER_KEY || e.keyCode === SPACE_KEY)
+          updateSelectedPlan(e.currentTarget.id);
+      }}
       id={`${planId}_${planInterval}`}
       selectedPlan={selectedPlan === planId}
       aria-label={selectedPlan === planId ? 'checked' : 'unchecked'}
@@ -42,7 +50,6 @@ const Card = ({
       {recommended && <Recommended>Recommended</Recommended>}
       <CardHeader>
         <Text type="h3">{planName}</Text>
-        {isCurrentPlan && <CurrentLabel>Current</CurrentLabel>}
       </CardHeader>
       <RadioButton selectedPlan={selectedPlan === planId}>
         <CheckmarkIcon size="large" />
@@ -54,7 +61,7 @@ const Card = ({
         <BenefitList>
           {highlights.map((benefit) => (
             <Benefit key={benefit}>
-              <CheckmarkIcon />
+              {planId === 'team' ? <AddIcon /> : <CheckmarkIcon />}
               <Text type="p">{benefit}</Text>
             </Benefit>
           ))}
@@ -64,18 +71,8 @@ const Card = ({
           <Text type="h2" as="p">
             {basePrice}
           </Text>
-          <sup
-            aria-label={
-              summary.intervalUnit === 'mo' ? 'per month' : 'per year'
-            }
-          >
-            {planId !== 'free' &&
-              `/${
-                summary.intervalUnit === 'mo' ? 'month' : 'month billed yearly'
-              }`}
-          </sup>
         </Price>
-        <Text htmlFor="foo" type="label" color="grayDark">
+        <Text type="label" color="grayDarker">
           {priceNote}
         </Text>
       </CardFooter>
