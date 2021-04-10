@@ -48,7 +48,7 @@ describe('getCopy', () => {
       'Congrats! You are now starting your trial'
     );
     expect(result.current.description).toBe(
-      'For the next 14 days you get to experience Buffer to it’s full. Have fun!'
+      'You can now experience all Buffer has to offer. Have fun!'
     );
     expect(result.current.buttonCopy).toBe(SUCCESS_CTA);
   });
