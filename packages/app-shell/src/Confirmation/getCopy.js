@@ -1,11 +1,12 @@
 export const SUCCESS_CTA = "Great, Let's Go!";
-const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
+const getCopy = ({ planName, startedTrial }) => {
   if (startedTrial) {
     return {
-      label: 'Congrats! You are now starting your trial',
-      description: 'You can now experience all Buffer has to offer. Have fun!',
-      buttonCopy: SUCCESS_CTA,
-      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png'
+      label: 'Trial activated! Time to explore.',
+      description:
+        'Let’s make the most of your 14-day trial. Jump in and start exploring your advanced publishing, analytics, and engagement features. ',
+      buttonCopy: "Let's Go!",
+      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png',
     };
   }
 
@@ -15,14 +16,14 @@ const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
       description:
         'Your change have gone through successfully. Start using your Free plan today.',
       buttonCopy: SUCCESS_CTA,
-      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png'
+      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png',
     };
   } else if (planName) {
     return {
       label: `Congrats! Welcome to the ${planName} plan`,
       description: `Your details have gone through successfully. Start using your ${planName} plan features.`,
       buttonCopy: SUCCESS_CTA,
-      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png'
+      imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-celebrate.png',
     };
   }
 
@@ -31,7 +32,7 @@ const getCopy = ({ planName, startedTrial, onlyUpdatedCardDetails }) => {
     description:
       'Thank you, your billing details have gone through successfully.',
     buttonCopy: "That's great!",
-    imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-highfive.png'
+    imageUrl: 'https://buffer-ui.s3.amazonaws.com/illustration-highfive.png',
   };
 };
 

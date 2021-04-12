@@ -44,12 +44,10 @@ describe('getCopy', () => {
 
     const { result } = renderHook(() => getCopy({ planName, startedTrial }));
 
-    expect(result.current.label).toBe(
-      'Congrats! You are now starting your trial'
-    );
+    expect(result.current.label).toBe('Trial activated! Time to explore.');
     expect(result.current.description).toBe(
-      'You can now experience all Buffer has to offer. Have fun!'
+      'Let’s make the most of your 14-day trial. Jump in and start exploring your advanced publishing, analytics, and engagement features. '
     );
-    expect(result.current.buttonCopy).toBe(SUCCESS_CTA);
+    expect(result.current.buttonCopy).toBe("Let's Go!");
   });
 });
