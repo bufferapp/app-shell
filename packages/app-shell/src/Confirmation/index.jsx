@@ -17,7 +17,7 @@ const ScreenContainer = styled.div`
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: bottom;
-  background-image: url('https://buffer-ui.s3.amazonaws.com/Confirmation+Illustration.png');
+  background-image: url(${(props) => props.imageUrl});
   background-size: 445px;
   padding: 24px;
 
@@ -50,7 +50,7 @@ const Screen = ({
   closeModal,
 }) => {
   const planName = selectedPlan ? selectedPlan.planName : null;
-  const { label, description, buttonCopy } = getCopy({
+  const { label, description, buttonCopy, imageUrl } = getCopy({
     planName,
     onlyUpdatedCardDetails,
     startedTrial,
@@ -72,7 +72,7 @@ const Screen = ({
   }, []);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer imageUrl={imageUrl}>
       <Text type="h1">{label}</Text>
       <Text type="p">{description}</Text>
       <ButtonContainer>
