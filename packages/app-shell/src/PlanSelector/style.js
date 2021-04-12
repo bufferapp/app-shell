@@ -125,6 +125,9 @@ export const Wrapper = styled.div`
   p {
     font-weight: 500;
     margin: 0;
+  }
+
+  div + p {
     max-width: 200px;
   }
 
