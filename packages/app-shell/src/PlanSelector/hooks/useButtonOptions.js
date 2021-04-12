@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { formatCTAString } from '../../hooks/useSegmentTracking'
+import { formatCTAString } from '../../hooks/useSegmentTracking';
 
 const useButtonOptions = ({
   selectedPlan,
@@ -11,7 +11,9 @@ const useButtonOptions = ({
 }) => {
   const getLabel = (selectedPlan) => {
     if (isActiveTrial) {
-      return hasPaymentDetails ? 'Confirm Trial Plan' : 'Go To Payment';
+      if (selectedPlan.planId === 'free') {
+        return 'Confirm Plan Change';
+      } else return hasPaymentDetails ? 'Confirm Trial Plan' : 'Go To Payment';
     } else if (selectedPlan?.isCurrentPlan) {
       if (selectedPlan.planId === 'free' && isAwaitingUserAction) {
         return 'Confirm Free Plan';
@@ -51,7 +53,7 @@ const useButtonOptions = ({
     label,
     action,
     updateButton,
-    ctaButton: formatCTAString(label)
+    ctaButton: formatCTAString(label),
   };
 };
 
