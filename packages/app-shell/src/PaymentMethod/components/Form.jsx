@@ -124,7 +124,7 @@ const Form = ({
             icon={<ArrowLeftIcon />}
           />
           <Text type="p">
-            <LockIcon size="medium" /> Payments are securely processed by Stripe
+            <LockIcon size="medium" /> Payments securely processed by Stripe
           </Text>
         </Footer>
       </LeftSide>

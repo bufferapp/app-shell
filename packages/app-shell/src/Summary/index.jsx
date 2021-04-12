@@ -135,7 +135,7 @@ const Summary = ({
     selectedPlan.planInterval === 'month' ? '30 days' : 'year';
 
   const getSummaryNote = () => {
-    if (isUpgradeIntent && trialInfo?.isActive) {
+    if (trialInfo?.isActive) {
       return (
         <Text type="p">
           You won't be charged until the end of your trial on{' '}
