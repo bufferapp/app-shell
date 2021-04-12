@@ -7,7 +7,7 @@ import { StyledError } from '../PaymentMethod/style';
 export const Holder = styled.div`
   display: flex;
   width: 800px;
-  height: 376px;
+  height: 405px;
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-position-x: right;
@@ -34,7 +34,7 @@ export const Content = styled.div`
 
   p {
     margin-top: 0px;
-    margin-bottom: 14px;
+    margin-bottom: 0px;
     max-width: 282px;
   }
 
@@ -63,7 +63,7 @@ export const Content = styled.div`
 
 export const Ctas = styled.div`
   display: flex;
-  div[type='primary'] {
+  div[type='secondary'] {
     margin-right: 8px;
   }
 `;

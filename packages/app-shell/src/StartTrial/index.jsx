@@ -16,7 +16,7 @@ const StartTrial = ({ user, openModal }) => {
   const [suggestedPlan, setSuggestedPlan] = useState(null);
   useEffect(() => {
     if (user) {
-      let plan = user.currentOrganization.billing.changePlanOptions.find(
+      let plan = user.currentOrganization?.billing?.changePlanOptions.find(
         (p) => p.isRecommended
       );
       if (!plan) {
@@ -43,39 +43,36 @@ const StartTrial = ({ user, openModal }) => {
   return (
     <Holder>
       <Content>
-        <Text type="h1">Want to try our trial?</Text>
+        <Text type="h1">Test run our paid features</Text>
         <Text type="p">
-          Get the best we have to offer to see how it fits for you and your
-          business.
+          Get faster results from your creative with our best publishing,
+          analytics, and engagement tools built for growing businesses.
         </Text>
         <ol>
           <li>
             {' '}
             <CheckmarkIcon size="medium" />
-            <Text>Unlimited users</Text>
+            <Text>Advanced Instagram features</Text>
           </li>
           <li>
             {' '}
             <CheckmarkIcon size="medium" />
-            <Text>Unlimited channels</Text>
+            <Text>Machine-learning driven insights</Text>
           </li>
           <li>
             {' '}
             <CheckmarkIcon size="medium" />
-            <Text>No credit card required</Text>
+            <Text>
+              Analytics for the best time to post and your audience demographics
+            </Text>
+          </li>
+          <li>
+            {' '}
+            <CheckmarkIcon size="medium" />
+            <Text>Easy, automatic reporting on growth and engagement</Text>
           </li>
         </ol>
         <Ctas>
-          <Button
-            type="primary"
-            disabled={!suggestedPlan || processing}
-            onClick={() => {
-              startTrial();
-            }}
-            label={
-              processing ? 'Processing ...' : 'Start Free 14-day Free Trial'
-            }
-          />
           <Button
             type="secondary"
             onClick={() => {
@@ -84,7 +81,15 @@ const StartTrial = ({ user, openModal }) => {
                 ctaButton: 'checkOutPaidPlans',
               });
             }}
-            label="Check Out Paid Plans"
+            label="I'm ready to upgrade"
+          />
+          <Button
+            type="primary"
+            disabled={!suggestedPlan || processing}
+            onClick={() => {
+              startTrial();
+            }}
+            label={processing ? 'Processing ...' : 'Start my 14-day Free Trial'}
           />
         </Ctas>
         <Error
