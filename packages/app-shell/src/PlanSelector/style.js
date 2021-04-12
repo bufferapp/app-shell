@@ -106,10 +106,10 @@ export const ButtonContainer = styled.div`
 
 export const Wrapper = styled.div`
   border: ${(props) =>
-    props.selectedPlan ? 'none' : `2px solid ${grayLight}`};
+    props.selectedPlan ? 'none' : `1.5px solid ${grayLight}`};
   box-shadow: ${(props) =>
     props.selectedPlan
-      ? `0px 0px 0px 1.5px #2c4bff, 0px 4px 8px rgba(0, 0, 0, 0.04)`
+      ? `0px 0px 0px 1.5px ${blue}, 0px 4px 8px rgba(0, 0, 0, 0.04)`
       : `0px 4px 8px rgba(0, 0, 0, 0.04)`};
   border-radius: 3px;
   height: 450px;
@@ -137,11 +137,8 @@ export const Wrapper = styled.div`
 
   &:focus,
   &:hover {
-    border: none;
-    box-shadow: ${(props) =>
-      props.selectedPlan
-        ? `0px 0px 0px 1.5px #2c4bff, 0px 4px 8px rgba(0, 0, 0, 0.04)`
-        : `0px 0px 0px 1.5px ${blueLighter}, 0px 4px 8px rgba(0, 0, 0, 0.04)`};
+    border: ${(props) =>
+      props.selectedPlan ? 'none' : `1.5px solid ${blueLighter}`};
     outline: none;
   }
 `;
