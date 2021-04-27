@@ -18,6 +18,7 @@ export const QUERY_ACCOUNT = gql`
     account {
       id
       email
+      avatar
       featureFlips
       isImpersonation
       currentOrganization {
