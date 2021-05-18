@@ -135,14 +135,7 @@ const Summary = ({
     selectedPlan.planInterval === 'month' ? '30 days' : 'year';
 
   const getSummaryNote = () => {
-    if (trialInfo?.isActive) {
-      return (
-        <Text type="p">
-          You won't be charged until the end of your trial on{' '}
-          <span>{formattedTrialEndDate}</span>
-        </Text>
-      );
-    } else if (selectedPlan.planId === 'free' && subscriptionEndDate) {
+    if (selectedPlan.planId === 'free' && subscriptionEndDate) {
       return (
         <Text type="p">
           Changing to Free will occur at the end of your next billing cycle on{' '}
@@ -181,17 +174,10 @@ const Summary = ({
             </DetailList>
             <Separator />
             <SummaryNote>
-              {trialInfo?.isActive ? (
-                <Text type="p">
-                  You won't be charged until the end of your trial on{' '}
-                  <b>{formattedTrialEndDate}</b>
-                </Text>
-              ) : (
-                <Text type="p">
-                  First payment will take place <span>today</span> and then{' '}
-                  <span>every {intervalInWords}</span>
-                </Text>
-              )}
+              <Text type="p">
+                First payment will take place <span>today</span> and then{' '}
+                <span>every {intervalInWords}</span>
+              </Text>
             </SummaryNote>
           </>
         )}
