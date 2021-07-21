@@ -2,6 +2,10 @@ export const DATES = {
   inMonthsFromNow(months) {
     const now = new Date()
     return new Date(now.setMonth(now.getMonth() + months));
+  },
+  inDaysFromNow(days) {
+    const now = new Date()
+    return new Date(now.setHours(now.getHours() + (days * 24)));
   }
 }
 

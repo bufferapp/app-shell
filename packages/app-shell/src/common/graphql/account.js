@@ -86,6 +86,9 @@ export const QUERY_ACCOUNT = gql`
         role
         createdAt
         isOneBufferOrganization
+        canMigrateToOneBuffer {
+          canMigrate
+        }
         shouldDisplayInviteCTA
         featureFlips
         billing {
